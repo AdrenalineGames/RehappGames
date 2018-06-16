@@ -12,6 +12,7 @@ public class PlayerPosition : MonoBehaviour
     public float ang;
     public float ang2;
     public float speedUp;
+    public float posAmplifier;
     public Rigidbody rigidbody;
 
     Vector3 speed = Vector3.zero;
@@ -20,12 +21,12 @@ public class PlayerPosition : MonoBehaviour
     Vector3 gravityAngle;
     Vector3 mean;
     Vector3 pionting;
-    float[] accDataX = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    float[] accDataY = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    float[] accDataZ = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    float[] filteredX = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    float[] filteredY = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    float[] filteredZ = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    float[] accDataX = { 0, 0, 0, 0, 0, 0};
+    float[] accDataY = { 0, 0, 0, 0, 0, 0};
+    float[] accDataZ = { 0, 0, 0, 0, 0, 0};
+    //float[] filteredX = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    //float[] filteredY = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    //float[] filteredZ = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     int init = 0;
     float accMiddle = 0;
     float deltaT;
@@ -63,15 +64,11 @@ public class PlayerPosition : MonoBehaviour
         {
             GetAccArray();
             GetOffset();
-            GetFilteredAcc();
-            PlayerSpeed();
-            //GetAngles();
-            UpdateCamRot();
-            if (init < 10)
+            if (init < 6)
                 init++;
             else
             {
-                //UpdateCamPos();
+                PlayerHorizontalPos();
             }
         }
 
@@ -110,6 +107,11 @@ public class PlayerPosition : MonoBehaviour
 
         //Debug.Log("Ang x: " + gravityAngle.x + "Ang y: " + gravityAngle.y + "Ang z: " + gravityAngle.z);
         //Debug.Log("Magnitud: " + Input.acceleration.magnitude);
+    }
+
+    private void PlayerHorizontalPos()
+    {
+        transform.position = new Vector3(mean.x, transform.position.y, transform.position.z)*posAmplifier;
     }
 
     private void CutTarget()
@@ -176,60 +178,12 @@ public class PlayerPosition : MonoBehaviour
 
     }
 
-    private void PlayerSpeed()
-    {
-        speed.x = speed.x + filteredX[0] * deltaT;
-        speed.y = speed.y + filteredY[0] * deltaT;
-        speed.z = speed.z + filteredZ[0] * deltaT;
-        //Debug.Log("acc: " + filteredAccZ);
-    }
-
-    private void GetFilteredAcc()
-    {
-        for (int i = 0; i < filteredX.Length; i++)
-            filteredX[i] = accDataX[i] - mean.x;
-        for (int i = 0; i < filteredY.Length; i++)
-            filteredY[i] = accDataY[i] - mean.y;
-        for (int i = 0; i < filteredZ.Length; i++)
-            filteredZ[i] = accDataZ[i] - mean.z;
-        //Debug.Log(string.Join(" ", filteredZ.Select(x => x.ToString()).ToArray()));
-    }
-
     private void GetOffset()
     {
         mean.x = accDataX.Average();
         mean.y = accDataY.Average();
         mean.z = accDataZ.Average();
         //Debug.Log("x: " + mean.x + "y: " + mean.y + "z: " + mean.z);
-    }
-
-    private void UpdateCamRot()
-    {
-        //transform.eulerAngles = new Vector3(0, 0, gravityAngle.z);
-        //transform.eulerAngles = new Vector3(gravityAngle.x,0, gravityAngle.y);
-        //transform.eulerAngles = new Vector3(gravityAngle.x, ang2, ang);
-        //transform.eulerAngles = gravityAngle;
-
-        Vector3 pointing = new Vector3(0, mean.z, -mean.y);
-        Vector3 relativePos = pointing - transform.position;
-        Quaternion verticalRot = Quaternion.LookRotation(relativePos);
-        transform.rotation = verticalRot;
-        Debug.Log("Y: " + mean.z + "Z" + -mean.y);
-
-        //cameraRotationAccelerometer();
-    }
-
-    private void GetAngles()
-    {
-        Vector3 ijk = Vector3.zero;
-
-        if (mean.y < 0) ijk.x += 180;
-        if (mean.z < 0) ijk.y += 180;
-        if (mean.x < 0) ijk.z += 180;
-
-        gravityAngle.x = (float)((Math.Atan(mean.z / mean.y)) * 180 / Math.PI) + ijk.x - 180;
-        gravityAngle.y = (float)((Math.Atan(mean.x / mean.z)) * 180 / Math.PI) + ijk.y;
-        gravityAngle.z = (float)((Math.Atan(mean.y / mean.x)) * 180 / Math.PI) + ijk.z;
     }
 
     void GetAccArray()
@@ -246,23 +200,8 @@ public class PlayerPosition : MonoBehaviour
 
     public void StartAccAdjust()
     {
-        //StartCoroutine(AdjustAccelerometer());
-        //accAdjusted = true;
-        lostTarget = true;
-        thereIsTarget = false;
-    }
-
-    private IEnumerator AdjustAccelerometer()
-    {
-        yield return new WaitForSeconds(2);
-        Debug.Log("G: " + (-acc.magnitude));
-        float minAcc = -acc.magnitude;
-        Debug.Log("turn it");
-        yield return new WaitForSeconds(3);
-        Debug.Log("G: " + (acc.magnitude));
-        float maxAcc = acc.magnitude;
-        accMiddle = (maxAcc + minAcc) / 2;
         accAdjusted = true;
-        Debug.Log("Middle: " + accMiddle);
+        //lostTarget = true;
+        //thereIsTarget = false;
     }
 }
