@@ -8,33 +8,24 @@ using System.Globalization;
 
 public class PlayerPosition : MonoBehaviour
 {
-
-    public float ang;
-    public float ang2;
     public float speedUp;
     public float posAmplifier;
-    public Rigidbody rigidbody;
 
-    Vector3 speed = Vector3.zero;
-    Vector3 prevSpeed = Vector3.zero;
+    public static float PlayerFrontalSpeed = 0;
+
     Vector3 acc;
-    Vector3 gravityAngle;
     Vector3 mean;
-    Vector3 pionting;
     float[] accDataX = { 0, 0, 0, 0, 0, 0};
     float[] accDataY = { 0, 0, 0, 0, 0, 0};
     float[] accDataZ = { 0, 0, 0, 0, 0, 0};
-    //float[] filteredX = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    //float[] filteredY = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    //float[] filteredZ = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     int init = 0;
-    float accMiddle = 0;
-    float deltaT;
     float linearSpeed = 0;
     bool accAdjusted = false;
+
     WebCamTexture cam;
     Texture2D tex;
     Texture2D targetTex;
+
     byte[] camImg;
     byte[] targetImg;
     int targetCenterX;
@@ -56,9 +47,7 @@ public class PlayerPosition : MonoBehaviour
         acc.x = Input.acceleration.x;
         acc.y = Input.acceleration.y;
         acc.z = Input.acceleration.z;
-
-        deltaT = Time.deltaTime;
-
+        
 
         if (accAdjusted)
         {
@@ -101,8 +90,7 @@ public class PlayerPosition : MonoBehaviour
 
             transform.position = new Vector3(Math.Abs(matchPosX - cam.width), matchPosY, transform.position.z);
             linearSpeed =  Math.Abs((float)(matchVal / 1000000000)-linearSpeed);
-            rigidbody.velocity = Vector3.forward * linearSpeed * speedUp / deltaT;
-            Debug.Log("vel: " + rigidbody.velocity.z);
+            PlayerFrontalSpeed = linearSpeed*speedUp;
         }
 
         //Debug.Log("Ang x: " + gravityAngle.x + "Ang y: " + gravityAngle.y + "Ang z: " + gravityAngle.z);
@@ -166,18 +154,6 @@ public class PlayerPosition : MonoBehaviour
         File.WriteAllBytes(Application.persistentDataPath + "/Target.png", bytes);
     }
 
-    private void UpdateCamPos()
-    {
-        //float filteredAccZ = -((int)(filteredZ.First() * 100)) / 100;
-        //float filteredAccZ = -filteredZ.First();
-        rigidbody.velocity = Vector3.forward * speed.x * speedUp;
-        //rigidbody.AddForce(new Vector3(0, 0, speed.x/deltaT), ForceMode.Acceleration);
-        //Debug.Log("acc: " + -filteredZ.First());
-        Debug.Log("vel: " + rigidbody.velocity.z);
-
-
-    }
-
     private void GetOffset()
     {
         mean.x = accDataX.Average();
@@ -189,11 +165,11 @@ public class PlayerPosition : MonoBehaviour
     void GetAccArray()
     {
         Array.Copy(accDataX, 0, accDataX, 1, accDataX.Length - 1);
-        accDataX[0] = acc.x - accMiddle;
+        accDataX[0] = acc.x;
         Array.Copy(accDataY, 0, accDataY, 1, accDataY.Length - 1);
-        accDataY[0] = acc.y - accMiddle;
+        accDataY[0] = acc.y;
         Array.Copy(accDataZ, 0, accDataZ, 1, accDataZ.Length - 1);
-        accDataZ[0] = acc.z - accMiddle;
+        accDataZ[0] = acc.z;
         //Debug.Log("G: " + (acc.z - accMiddle));
         //Debug.Log(string.Join(" ", accDataZ.Select(x => x.ToString()).ToArray()));
     }
@@ -203,5 +179,10 @@ public class PlayerPosition : MonoBehaviour
         accAdjusted = true;
         //lostTarget = true;
         //thereIsTarget = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Yay!");
     }
 }

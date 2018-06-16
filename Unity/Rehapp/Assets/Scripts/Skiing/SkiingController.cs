@@ -1,22 +1,30 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SkiingController : MonoBehaviour {
 
     public Transform flag;
+    public Transform flagsContainer;
 
-	void Start () {
-		
-	}
+    float newFlag;
+
 	
-	// Update is called once per frame
+
 	void Update () {
-		
-	}
+        newFlag += Time.deltaTime;
+        if (newFlag > 2)
+        {
+            newFlag = 0;
+            NewFlag();
+        }
+    }
 
     public void NewFlag()
     {
-        Instantiate(flag, new Vector3(0, 0, 0), Quaternion.identity);
+        Vector3 newFlagPos = new Vector3(UnityEngine.Random.Range(-10.0f, 10.0f), flagsContainer.position.y, flagsContainer.position.z);
+        Instantiate(flag, newFlagPos, Quaternion.identity, flagsContainer);
+        PlayerPosition.PlayerFrontalSpeed = 10;
     }
 }
