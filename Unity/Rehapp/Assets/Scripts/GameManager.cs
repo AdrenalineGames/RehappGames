@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour {
     public string playerName;
     public string playerPw;
     public int playerLevel;
+    public int marathonLevel;
+    public int skiingLevel;
 
     public void LoginPlayerName(Text name)
     {
@@ -26,6 +28,12 @@ public class GameManager : MonoBehaviour {
     public void SetPlayerLvl(int lvl)
     {
         playerLevel = lvl;
+        Save();
+    }
+
+    public void SetSkiingvl(int lvl)
+    {
+        skiingLevel = lvl;
         Save();
     }
 
@@ -48,6 +56,8 @@ public class GameManager : MonoBehaviour {
         data.playerName = "";
         data.playerPw = "";
         data.playerLevel = playerLevel;
+        data.skiingLevel = skiingLevel;
+        data.marathonLevel = marathonLevel;
 
         bf.Serialize(file, data);
         file.Close();
@@ -66,6 +76,8 @@ public class GameManager : MonoBehaviour {
             playerName = data.playerName;
             playerPw = data.playerPw;
             playerLevel = data.playerLevel;
+            skiingLevel = data.skiingLevel;
+            marathonLevel = data.marathonLevel;
         }
         else Debug.Log("No saved data");
     }
@@ -79,4 +91,6 @@ class PlayerData
     public string playerName;
     public string playerPw;
     public int playerLevel;
+    public int marathonLevel;
+    public int skiingLevel;
 }

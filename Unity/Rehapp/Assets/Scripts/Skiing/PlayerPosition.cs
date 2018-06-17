@@ -12,6 +12,7 @@ public class PlayerPosition : MonoBehaviour
     public float posAmplifier;
 
     public static float PlayerFrontalSpeed = 0;
+    public static float distanceCovered = 0;
 
     Vector3 acc;
     Vector3 mean;
@@ -47,10 +48,10 @@ public class PlayerPosition : MonoBehaviour
         acc.x = Input.acceleration.x;
         acc.y = Input.acceleration.y;
         acc.z = Input.acceleration.z;
-        
 
-        if (accAdjusted)
+        if (SkiingController.onGame)
         {
+            distanceCovered += PlayerFrontalSpeed * Time.deltaTime;
             GetAccArray();
             GetOffset();
             if (init < 6)
@@ -184,5 +185,6 @@ public class PlayerPosition : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Yay!");
+        SkiingController.PlayerScore(1);
     }
 }

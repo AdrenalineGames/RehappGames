@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FlagPosition : MonoBehaviour {
-
     private void Update()
     {
         Position();
