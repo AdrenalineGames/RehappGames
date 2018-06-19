@@ -21,6 +21,12 @@ public class PlayerPosition : MonoBehaviour
     float[] accDataZ = { 0, 0, 0, 0, 0, 0};
     int init = 0;
     float linearSpeed = 0;
+    float lastPos = 0;
+    float newPos = 0;
+    float moved = 0;
+    int targetLostCount = 0;
+    int newTargetCount = 0;
+    float targetLostTimer = 0;
     bool accAdjusted = false;
 
     WebCamTexture cam;
@@ -31,7 +37,7 @@ public class PlayerPosition : MonoBehaviour
     byte[] targetImg;
     int targetCenterX;
     int targetCenterY;
-    bool lostTarget = false;
+    bool lostTarget = true;
     bool thereIsTarget = false;
     double matchVal;
     int matchPosX;
@@ -39,6 +45,7 @@ public class PlayerPosition : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log(Application.persistentDataPath);
         cam = GlobalCam.gameCam;
         tex = new Texture2D(640, 480, TextureFormat.RGB24, false);
     }
@@ -60,42 +67,98 @@ public class PlayerPosition : MonoBehaviour
             {
                 PlayerHorizontalPos();
             }
-        }
 
-        if (lostTarget)
+            if (lostTarget)
+            {
+                NewTarget();
+            }
+            if (thereIsTarget)
+            {
+                TargetMatch();
+
+                DetectLostTarget();
+
+                SetPlayerSpeed();
+            }
+
+            //Debug.Log("Ang x: " + gravityAngle.x + "Ang y: " + gravityAngle.y + "Ang z: " + gravityAngle.z);
+            //Debug.Log("Magnitud: " + Input.acceleration.magnitude);
+        }
+    }
+
+    private void SetPlayerSpeed()
+    {
+        //Debug.Log("Match: " + matchVal);
+        newPos = (float)(matchVal / 10000000);
+        moved = newPos - lastPos;
+        lastPos = newPos;
+        linearSpeed = Math.Abs(moved);
+
+        if (linearSpeed < 0.1)
+            PlayerFrontalSpeed = 0.1f;
+        else
+            PlayerFrontalSpeed = linearSpeed * speedUp;
+
+        Debug.Log("linearSpeed: " + PlayerFrontalSpeed);
+    }
+
+    private void DetectLostTarget()
+    {
+        targetLostTimer += Time.deltaTime;
+        if (targetLostTimer > 2)
         {
-            lostTarget = false;
-
-            tex.SetPixels32(cam.GetPixels32());
-            tex.Apply();
-            camImg = tex.GetRawTextureData();
-
-            OcvMechanics.GetTarget(camImg, cam.width, cam.height, out targetCenterX, out targetCenterY);
-
-            CutTarget();
-            thereIsTarget = true;
-
-            transform.position = new Vector3(Math.Abs(targetCenterX - cam.width), targetCenterY, 0);
+            targetLostTimer = 0;
+            targetLostCount = 0;
+            newTargetCount++;
+            if (newTargetCount > 3)
+            {
+                Debug.Log("New target!");
+                newTargetCount = 0;
+                lostTarget = true;
+                thereIsTarget = false;
+            }
         }
-        if (thereIsTarget)
+        if (newPos > 4)
         {
-            tex.SetPixels32(cam.GetPixels32());
-            tex.Apply();
-            camImg = tex.GetRawTextureData();
-
-            targetImg = targetTex.GetRawTextureData();
-
-            OcvMechanics.MatchTemplateImg(camImg, cam.width, cam.height, targetImg, targetTex.width, targetTex.height, out matchVal, out matchPosX, out matchPosY);
-
-            Debug.Log("Match: " + matchVal);
-
-            transform.position = new Vector3(Math.Abs(matchPosX - cam.width), matchPosY, transform.position.z);
-            linearSpeed =  Math.Abs((float)(matchVal / 1000000000)-linearSpeed);
-            PlayerFrontalSpeed = linearSpeed*speedUp;
+            targetLostCount++;
+            if (targetLostCount > 50)
+            {
+                newTargetCount = 0;
+                targetLostCount = 0;
+                Debug.Log("Lost!");
+                lostTarget = true;
+                thereIsTarget = false;
+            }
         }
+    }
 
-        //Debug.Log("Ang x: " + gravityAngle.x + "Ang y: " + gravityAngle.y + "Ang z: " + gravityAngle.z);
-        //Debug.Log("Magnitud: " + Input.acceleration.magnitude);
+    private void TargetMatch()
+    {
+        TakePic();
+
+        targetImg = targetTex.GetRawTextureData();
+
+        OcvMechanics.MatchTemplateImg(camImg, cam.width, cam.height, targetImg, targetTex.width, targetTex.height, out matchVal, out matchPosX, out matchPosY);
+    }
+
+    private void NewTarget()
+    {
+        TakePic();
+
+        OcvMechanics.GetTarget(camImg, cam.width, cam.height, out targetCenterX, out targetCenterY);
+
+        CutTarget();
+        lostTarget = false;
+        thereIsTarget = true;
+
+        //transform.position = new Vector3(Math.Abs(targetCenterX - cam.width), targetCenterY, 0);
+    }
+
+    private void TakePic()
+    {
+        tex.SetPixels32(cam.GetPixels32());
+        tex.Apply();
+        camImg = tex.GetRawTextureData();
     }
 
     private void PlayerHorizontalPos()
