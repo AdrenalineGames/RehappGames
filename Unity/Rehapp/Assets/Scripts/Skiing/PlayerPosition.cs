@@ -99,7 +99,7 @@ public class PlayerPosition : MonoBehaviour
         else
             PlayerFrontalSpeed = linearSpeed * speedUp;
 
-        Debug.Log("linearSpeed: " + PlayerFrontalSpeed);
+        //Debug.Log("linearSpeed: " + PlayerFrontalSpeed);
     }
 
     private void DetectLostTarget()
@@ -139,6 +139,8 @@ public class PlayerPosition : MonoBehaviour
         targetImg = targetTex.GetRawTextureData();
 
         OcvMechanics.MatchTemplateImg(camImg, cam.width, cam.height, targetImg, targetTex.width, targetTex.height, out matchVal, out matchPosX, out matchPosY);
+        //Debug.Log("Match: " + matchVal);
+        Debug.Log("1");
     }
 
     private void NewTarget()
@@ -214,8 +216,8 @@ public class PlayerPosition : MonoBehaviour
         targetTex.SetPixels(0, 0, targetTex.width, targetTex.height, cam.GetPixels((int)minX, (int)minY, targetTex.width, targetTex.height));
         targetTex.Apply();
 
-        byte[] bytes = targetTex.EncodeToPNG();
-        File.WriteAllBytes(Application.persistentDataPath + "/Target.png", bytes);
+        //byte[] bytes = targetTex.EncodeToPNG();
+        //File.WriteAllBytes(Application.persistentDataPath + "/Target.png", bytes);
     }
 
     private void GetOffset()
