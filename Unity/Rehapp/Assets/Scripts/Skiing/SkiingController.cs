@@ -11,6 +11,7 @@ public class SkiingController : MonoBehaviour {
     public Text timerText;
 
     public float gameTime = 10;
+    public int distanceBetweenFlags;
 
     public static bool onGame = false;
 
@@ -29,7 +30,7 @@ public class SkiingController : MonoBehaviour {
                 timerText.text = ((int)gameTimer).ToString();
                 if ((int)(PlayerPosition.distanceCovered) == playerDistance)
                 {
-                    playerDistance = (int)PlayerPosition.distanceCovered+2;
+                    playerDistance = (int)PlayerPosition.distanceCovered + distanceBetweenFlags;
                     NewFlag();
                 }
             }

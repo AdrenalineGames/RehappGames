@@ -58,7 +58,6 @@ public class PlayerPosition : MonoBehaviour
 
         if (SkiingController.onGame)
         {
-            distanceCovered += PlayerFrontalSpeed * Time.deltaTime;
             GetAccArray();
             GetOffset();
             if (init < 6)
@@ -72,8 +71,9 @@ public class PlayerPosition : MonoBehaviour
             {
                 NewTarget();
             }
-            if (thereIsTarget)
+            if (thereIsTarget && cam.didUpdateThisFrame)
             {
+                distanceCovered += PlayerFrontalSpeed * Time.deltaTime;
                 TargetMatch();
 
                 DetectLostTarget();
@@ -81,8 +81,7 @@ public class PlayerPosition : MonoBehaviour
                 SetPlayerSpeed();
             }
 
-            //Debug.Log("Ang x: " + gravityAngle.x + "Ang y: " + gravityAngle.y + "Ang z: " + gravityAngle.z);
-            //Debug.Log("Magnitud: " + Input.acceleration.magnitude);
+            Debug.Log("Distance: " + distanceCovered);
         }
     }
 
@@ -99,7 +98,7 @@ public class PlayerPosition : MonoBehaviour
         else
             PlayerFrontalSpeed = linearSpeed * speedUp;
 
-        //Debug.Log("linearSpeed: " + PlayerFrontalSpeed);
+        Debug.Log("linearSpeed: " + PlayerFrontalSpeed);
     }
 
     private void DetectLostTarget()
@@ -139,8 +138,6 @@ public class PlayerPosition : MonoBehaviour
         targetImg = targetTex.GetRawTextureData();
 
         OcvMechanics.MatchTemplateImg(camImg, cam.width, cam.height, targetImg, targetTex.width, targetTex.height, out matchVal, out matchPosX, out matchPosY);
-        //Debug.Log("Match: " + matchVal);
-        Debug.Log("1");
     }
 
     private void NewTarget()

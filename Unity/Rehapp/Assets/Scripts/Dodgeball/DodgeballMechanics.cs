@@ -100,7 +100,7 @@ public class DodgeballMechanics : MonoBehaviour {
     }
 
     void Update () {
-        if (cam.isPlaying && backgroundB != null)
+        if (cam.isPlaying && backgroundB != null && cam.didUpdateThisFrame)
         {
             tex.SetPixels32(cam.GetPixels32());
             tex.Apply();

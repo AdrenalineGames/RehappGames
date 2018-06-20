@@ -31,10 +31,10 @@ public class OcvMechanics {
     [DllImport("libRehapp")]
     private static extern void BodyTrack(byte[] raw, int width, int height, byte[] rawB, IntPtr hullPoints, out int hullLen);
     
-    [DllImport(("libRehapp")]
+    [DllImport("libRehapp")]
     private static extern void TargetSelector(byte[] img, int imgWidth, int imgHeight, out int targetCenterX, out int targetCenterY);
 
-    [DllImport(("libRehapp")]
+    [DllImport("libRehapp")]
     private static extern void matchTemplateImg(byte[] img, int imgWidth, int imgHeight, byte[] target, int targetWidth, int targetHeight, out double matchVal, out int matchCenterX, out int matchCenterY);    
 
 

@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Main.unity
     guid: 33d8434807fa32546a224db091f188d0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Marathon.unity
     guid: 5ed0b9621dedcb14d9ea738d18d427b8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Skiing.unity
     guid: 18e8c31525ecf29479742228126abeb9
   - enabled: 1

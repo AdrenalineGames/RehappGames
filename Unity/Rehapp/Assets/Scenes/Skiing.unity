@@ -1839,6 +1839,7 @@ MonoBehaviour:
   flagsContainer: {fileID: 561681788}
   timerText: {fileID: 220261211}
   gameTime: 10
+  distanceBetweenFlags: 3
 --- !u!4 &1192604407
 Transform:
   m_ObjectHideFlags: 0
