@@ -24,8 +24,8 @@ public class GlobalCam : MonoBehaviour {
                 cam = devices[i].name;
             }
         }
-        gameCam = new WebCamTexture(cam, camWidth, camHeigth, 15);
-        gameCam.requestedFPS = 15;
+        gameCam = new WebCamTexture(cam, camWidth, camHeigth, 30);
+        gameCam.requestedFPS = 30;
         gameCam.Play();
     }
 

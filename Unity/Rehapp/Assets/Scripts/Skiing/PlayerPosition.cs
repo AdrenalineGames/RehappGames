@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.IO;
 using System.Linq;
@@ -10,6 +11,9 @@ public class PlayerPosition : MonoBehaviour
 {
     public float speedUp;
     public float posAmplifier;
+    public float matchDivider = 10000000;   //640x480 = 10000000, 160x120 = 500000
+    public float targetLimit = 0.23f;    //640x480 = 4, 160x120 = 0.23
+    public Text debugTx;
 
     public static float PlayerFrontalSpeed = 0;
     public float distanceCovered = 0;
@@ -27,7 +31,6 @@ public class PlayerPosition : MonoBehaviour
     int targetLostCount = 0;
     int newTargetCount = 0;
     float targetLostTimer = 0;
-    bool accAdjusted = false;
 
     public WebCamTexture cam;
     Texture2D tex;
@@ -54,6 +57,8 @@ public class PlayerPosition : MonoBehaviour
         acc.y = Input.acceleration.y;
         acc.z = Input.acceleration.z;
 
+        targetLostTimer += Time.deltaTime;
+
         if (SkiingController.onGame)
         {
             GetAccArray();
@@ -77,16 +82,21 @@ public class PlayerPosition : MonoBehaviour
                 DetectLostTarget();
 
                 SetPlayerSpeed();
-                Debug.Log("Distance: " + distanceCovered);
+                //Debug.Log("Distance: " + distanceCovered);
             }
 
         }
     }
 
+    public void PlayerSpeedMultiplier(float mD)
+    {
+        matchDivider = mD;
+    }
+
     private void SetPlayerSpeed()
     {
         //Debug.Log("Match: " + matchVal);
-        newPos = (float)(matchVal / 10000000);
+        newPos = (float)(matchVal / matchDivider);
         moved = newPos - lastPos;
         lastPos = newPos;
         linearSpeed = Math.Abs(moved);
@@ -96,12 +106,11 @@ public class PlayerPosition : MonoBehaviour
         else
             PlayerFrontalSpeed = linearSpeed * speedUp;
 
-        Debug.Log("linearSpeed: " + PlayerFrontalSpeed);
+        Debug.Log("Speed: " + linearSpeed);
     }
 
     private void DetectLostTarget()
     {
-        targetLostTimer += Time.deltaTime;
         if (targetLostTimer > 2)
         {
             targetLostTimer = 0;
@@ -109,20 +118,22 @@ public class PlayerPosition : MonoBehaviour
             newTargetCount++;
             if (newTargetCount > 3)
             {
-                Debug.Log("New target!");
+                //Debug.Log("New target!");
+                debugTx.text = "New Target!";
                 newTargetCount = 0;
                 lostTarget = true;
                 thereIsTarget = false;
             }
         }
-        if (newPos > 4)
+        if (newPos < 0.6f)
         {
             targetLostCount++;
-            if (targetLostCount > 50)
+            if (targetLostCount > 15)
             {
                 newTargetCount = 0;
                 targetLostCount = 0;
-                Debug.Log("Lost!");
+                //Debug.Log("Lost!");
+                debugTx.text = "Lost!";
                 lostTarget = true;
                 thereIsTarget = false;
             }
@@ -234,13 +245,6 @@ public class PlayerPosition : MonoBehaviour
         accDataZ[0] = acc.z;
         //Debug.Log("G: " + (acc.z - accMiddle));
         //Debug.Log(string.Join(" ", accDataZ.Select(x => x.ToString()).ToArray()));
-    }
-
-    public void StartAccAdjust()
-    {
-        accAdjusted = true;
-        //lostTarget = true;
-        //thereIsTarget = false;
     }
 
     private void OnTriggerEnter(Collider other)

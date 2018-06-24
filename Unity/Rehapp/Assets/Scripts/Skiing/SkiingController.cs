@@ -112,7 +112,7 @@ public class SkiingController : MonoBehaviour {
 
     void ResetLevel()
     {
-        gameTime = 10 + GameManager.manager.skiingLevel;
+        //gameTime = 10 + GameManager.manager.skiingLevel;
         gameTimer = gameTime;
         playerDistance = 0;
         PlayerPosition.PlayerFrontalSpeed = 3;
