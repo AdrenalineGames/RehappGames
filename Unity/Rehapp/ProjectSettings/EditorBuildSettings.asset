@@ -11,9 +11,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Marathon.unity
     guid: 5ed0b9621dedcb14d9ea738d18d427b8
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Skiing.unity
     guid: 18e8c31525ecf29479742228126abeb9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DodgeBall.unity
     guid: a204f34c6a103454cb40a6e4d5182ac5

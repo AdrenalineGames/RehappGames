@@ -12,7 +12,7 @@ public class PlayerPosition : MonoBehaviour
     public float posAmplifier;
 
     public static float PlayerFrontalSpeed = 0;
-    public static float distanceCovered = 0;
+    public float distanceCovered = 0;
 
     Vector3 acc;
     Vector3 mean;
@@ -29,7 +29,7 @@ public class PlayerPosition : MonoBehaviour
     float targetLostTimer = 0;
     bool accAdjusted = false;
 
-    WebCamTexture cam;
+    public WebCamTexture cam;
     Texture2D tex;
     Texture2D targetTex;
 
@@ -46,8 +46,6 @@ public class PlayerPosition : MonoBehaviour
     private void OnEnable()
     {
         Debug.Log(Application.persistentDataPath);
-        cam = GlobalCam.gameCam;
-        tex = new Texture2D(640, 480, TextureFormat.RGB24, false);
     }
 
     private void FixedUpdate()
@@ -79,9 +77,9 @@ public class PlayerPosition : MonoBehaviour
                 DetectLostTarget();
 
                 SetPlayerSpeed();
+                Debug.Log("Distance: " + distanceCovered);
             }
 
-            Debug.Log("Distance: " + distanceCovered);
         }
     }
 
@@ -155,6 +153,7 @@ public class PlayerPosition : MonoBehaviour
 
     private void TakePic()
     {
+        tex = new Texture2D(cam.width, cam.height, TextureFormat.RGB24, false);
         tex.SetPixels32(cam.GetPixels32());
         tex.Apply();
         camImg = tex.GetRawTextureData();

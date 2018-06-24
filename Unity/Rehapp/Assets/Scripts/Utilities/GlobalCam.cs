@@ -5,19 +5,27 @@ using UnityEngine;
 public class GlobalCam : MonoBehaviour {
 
     public static WebCamTexture gameCam;
+    static public int camWidth = 640;
+    static public int camHeigth = 480;
+    static public bool useRearCam = false;
 
-	void Awake () {
+    public static void SetGlobalCam () {
         var devices = WebCamTexture.devices;
-        var frontCam = "";
-        if (devices.Length > 0) frontCam = devices[0].name;
+        var cam = "";
+        if (devices.Length > 0) cam = devices[0].name;
         for (int i = 0; i < devices.Length; i++)
         {
-            if (devices[i].isFrontFacing)
+            if (devices[i].isFrontFacing && !useRearCam)
             {
-                frontCam = devices[i].name;
+                cam = devices[i].name;
+            }
+            if (!devices[i].isFrontFacing && useRearCam)
+            {
+                cam = devices[i].name;
             }
         }
-        gameCam = new WebCamTexture(frontCam, 640, 480, 30);
+        gameCam = new WebCamTexture(cam, camWidth, camHeigth, 15);
+        gameCam.requestedFPS = 15;
         gameCam.Play();
     }
 

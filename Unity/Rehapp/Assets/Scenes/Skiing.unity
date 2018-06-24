@@ -1707,7 +1707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1047862296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1838,8 +1838,13 @@ MonoBehaviour:
   flag: {fileID: 4860040998076912, guid: 36d17dec68237184b91563f11600e62a, type: 2}
   flagsContainer: {fileID: 561681788}
   timerText: {fileID: 220261211}
+  showCamScript: {fileID: 1047862296}
+  playerScript: {fileID: 1477557419}
   gameTime: 10
   distanceBetweenFlags: 3
+  globalCamWidth: 160
+  globalCamHeigth: 120
+  useRaerGlobalCam: 1
 --- !u!4 &1192604407
 Transform:
   m_ObjectHideFlags: 0
@@ -2518,6 +2523,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedUp: 5
   posAmplifier: 10
+  distanceCovered: 0
+  cam: {fileID: 0}
 --- !u!4 &1477557421
 Transform:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShowCam : MonoBehaviour {
         
-    private void OnEnable()
+    public void StartShowCam()
     {
         var renderer = GetComponent<Renderer>();
         renderer.material.SetFloat("_Mode", 3);

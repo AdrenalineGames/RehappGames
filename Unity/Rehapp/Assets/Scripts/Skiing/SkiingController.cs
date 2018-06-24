@@ -9,9 +9,14 @@ public class SkiingController : MonoBehaviour {
     public Transform flag;
     public Transform flagsContainer;
     public Text timerText;
+    public ShowCam showCamScript = null;
+    public PlayerPosition playerScript;
 
     public float gameTime = 10;
     public int distanceBetweenFlags;
+    public int globalCamWidth;
+    public int globalCamHeigth;
+    public bool useRaerGlobalCam;
 
     public static bool onGame = false;
 
@@ -20,6 +25,17 @@ public class SkiingController : MonoBehaviour {
     int playerDistance;
     char[] ratings = { 'E', 'D', 'C', 'B', 'A', 'S' };
 
+    private void Start()
+    {
+        //Application.targetFrameRate = 30;
+        GlobalCam.camWidth = globalCamWidth;
+        GlobalCam.camHeigth = globalCamHeigth;
+        GlobalCam.useRearCam = useRaerGlobalCam;
+        GlobalCam.SetGlobalCam();
+        if (showCamScript != null)
+            showCamScript.StartShowCam();
+        playerScript.cam = GlobalCam.gameCam;
+    }
 
     void Update () {
         if (onGame)
@@ -28,9 +44,9 @@ public class SkiingController : MonoBehaviour {
             if (gameTimer >= 0)
             {
                 timerText.text = ((int)gameTimer).ToString();
-                if ((int)(PlayerPosition.distanceCovered) == playerDistance)
+                if ((int)(playerScript.distanceCovered) == playerDistance)
                 {
-                    playerDistance = (int)PlayerPosition.distanceCovered + distanceBetweenFlags;
+                    playerDistance = (int)playerScript.distanceCovered + distanceBetweenFlags;
                     NewFlag();
                 }
             }
@@ -100,6 +116,6 @@ public class SkiingController : MonoBehaviour {
         gameTimer = gameTime;
         playerDistance = 0;
         PlayerPosition.PlayerFrontalSpeed = 3;
-        PlayerPosition.distanceCovered = 0;
+        playerScript.distanceCovered = 0;
     }
 }
