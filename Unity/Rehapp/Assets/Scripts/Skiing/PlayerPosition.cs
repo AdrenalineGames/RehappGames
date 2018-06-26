@@ -44,6 +44,8 @@ public class PlayerPosition : MonoBehaviour
     double matchVal;
     int matchPosX;
     int matchPosY;
+    int camWidth;
+    int camHeight;
 
     private void OnEnable()
     {
@@ -56,10 +58,11 @@ public class PlayerPosition : MonoBehaviour
         acc.y = Input.acceleration.y;
         acc.z = Input.acceleration.z;
 
-        targetLostTimer += Time.deltaTime;
 
         if (SkiingController.onGame)
         {
+            targetLostTimer += Time.deltaTime;
+            distanceCovered += PlayerFrontalSpeed * Time.deltaTime;
             GetAccArray();
             GetOffset();
             if (init < 6)
@@ -71,11 +74,12 @@ public class PlayerPosition : MonoBehaviour
 
             if (lostTarget)
             {
+                camWidth = cam.width;
+                camHeight = cam.height;
                 NewTarget();
             }
             if (thereIsTarget && cam.didUpdateThisFrame)
             {
-                distanceCovered += PlayerFrontalSpeed * Time.deltaTime;
                 TargetMatch();
 
                 DetectLostTarget();
@@ -144,14 +148,16 @@ public class PlayerPosition : MonoBehaviour
 
         targetImg = targetTex.GetRawTextureData();
 
-        OcvMechanics.MatchTemplateImg(camImg, cam.width, cam.height, targetImg, targetTex.width, targetTex.height, out matchVal, out matchPosX, out matchPosY);
+        if(SkiingController.onGame)
+            OcvMechanics.MatchTemplateImg(camImg, camWidth, camHeight, targetImg, targetTex.width, targetTex.height, out matchVal, out matchPosX, out matchPosY);
     }
 
     private void NewTarget()
     {
         TakePic();
 
-        OcvMechanics.GetTarget(camImg, cam.width, cam.height, out targetCenterX, out targetCenterY);
+        if (SkiingController.onGame)
+            OcvMechanics.GetTarget(camImg, camWidth, camHeight, out targetCenterX, out targetCenterY);
 
         CutTarget();
         lostTarget = false;
@@ -162,7 +168,7 @@ public class PlayerPosition : MonoBehaviour
 
     private void TakePic()
     {
-        tex = new Texture2D(cam.width, cam.height, TextureFormat.RGB24, false);
+        tex = new Texture2D(camWidth, camHeight, TextureFormat.RGB24, false);
         tex.SetPixels32(cam.GetPixels32());
         tex.Apply();
         camImg = tex.GetRawTextureData();

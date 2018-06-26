@@ -54,3 +54,5 @@ MonoBehaviour:
   playerName: Nah
   playerPw: Nah
   playerLevel: 0
+  marathonLevel: 0
+  skiingLevel: 0

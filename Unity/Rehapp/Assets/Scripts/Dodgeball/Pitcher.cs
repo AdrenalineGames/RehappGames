@@ -22,8 +22,8 @@ public class Pitcher : MonoBehaviour {
 
     void Start()
     {
-        globalCamWidth = (int)GlobalCam.CamDimensions().x;
-        globalCamHeigth = (int)GlobalCam.CamDimensions().y;
+        globalCamWidth = (int)GlobalCam.gameCam.width;
+        globalCamHeigth = (int)GlobalCam.gameCam.height;
     }
 
     void OnEnable()

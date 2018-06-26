@@ -29,16 +29,9 @@ public class GlobalCam : MonoBehaviour {
         gameCam.Play();
     }
 
-    public static Vector2 CamDimensions()
-    {
-        Vector2 w_h = new Vector2();
-        w_h.x = gameCam.width;
-        w_h.y = gameCam.height;
-        return w_h;
-    }
-
-    public static void StopCam()
+    public void StopCam()
     {
         gameCam.Stop();
+        Debug.Log("Global cam stopped");
     }
 }

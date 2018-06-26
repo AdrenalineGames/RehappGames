@@ -19,25 +19,17 @@ public class SkiingController : MonoBehaviour {
     public bool useRaerGlobalCam;
 
     public static bool onGame = false;
+    public bool onGameB = false;
 
     float gameTimer;
     static float sessionScore;
     int playerDistance;
     char[] ratings = { 'E', 'D', 'C', 'B', 'A', 'S' };
 
-    private void Start()
-    {
-        //Application.targetFrameRate = 30;
-        GlobalCam.camWidth = globalCamWidth;
-        GlobalCam.camHeigth = globalCamHeigth;
-        GlobalCam.useRearCam = useRaerGlobalCam;
-        GlobalCam.SetGlobalCam();
-        if (showCamScript != null)
-            showCamScript.StartShowCam();
-        playerScript.cam = GlobalCam.gameCam;
-    }
 
     void Update () {
+        //onGame = onGameB;
+        onGameB = onGame;
         if (onGame)
         {
             gameTimer -= Time.deltaTime;
@@ -106,7 +98,21 @@ public class SkiingController : MonoBehaviour {
 
     public void StartGame()
     {
+        //Application.targetFrameRate = 30;
+        GlobalCam.camWidth = globalCamWidth;
+        GlobalCam.camHeigth = globalCamHeigth;
+        GlobalCam.useRearCam = useRaerGlobalCam;
+        GlobalCam.SetGlobalCam();
+        //if (showCamScript != null)
+        //    showCamScript.StartShowCam();
+        playerScript.cam = GlobalCam.gameCam;
         ResetLevel();
+        StartCoroutine(OnGame());
+    }
+
+    IEnumerator OnGame()
+    {
+        yield return new WaitForSeconds(2); //Avoid error with first fotogram
         onGame = true;
     }
 
