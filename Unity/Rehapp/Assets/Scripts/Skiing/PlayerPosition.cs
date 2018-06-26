@@ -12,8 +12,7 @@ public class PlayerPosition : MonoBehaviour
     public float speedUp;
     public float posAmplifier;
     public float matchDivider = 10000000;   //640x480 = 10000000, 160x120 = 500000
-    public float targetLimit = 0.23f;    //640x480 = 4, 160x120 = 0.23
-    public Text debugTx;
+    public float targetLimit = 0.6f;    //640x480 = 4, 160x120 = 0.6
 
     public static float PlayerFrontalSpeed = 0;
     public float distanceCovered = 0;
@@ -23,8 +22,8 @@ public class PlayerPosition : MonoBehaviour
     float[] accDataX = { 0, 0, 0, 0, 0, 0};
     float[] accDataY = { 0, 0, 0, 0, 0, 0};
     float[] accDataZ = { 0, 0, 0, 0, 0, 0};
+    float[] linearSpeed = { 0, 0, 0, 0, 0, 0 };
     int init = 0;
-    float linearSpeed = 0;
     float lastPos = 0;
     float newPos = 0;
     float moved = 0;
@@ -99,14 +98,15 @@ public class PlayerPosition : MonoBehaviour
         newPos = (float)(matchVal / matchDivider);
         moved = newPos - lastPos;
         lastPos = newPos;
-        linearSpeed = Math.Abs(moved);
+        Array.Copy(linearSpeed, 0, linearSpeed, 1, linearSpeed.Length - 1);
+        linearSpeed[0] = Math.Abs(moved);
 
-        if (linearSpeed < 0.1)
+        if (linearSpeed[0] < 0.1 || linearSpeed[0] > 0.4)
             PlayerFrontalSpeed = 0.1f;
         else
-            PlayerFrontalSpeed = linearSpeed * speedUp;
+            PlayerFrontalSpeed = linearSpeed.Average() * speedUp;
 
-        Debug.Log("Speed: " + linearSpeed);
+        Debug.Log("Speed: " + PlayerFrontalSpeed);
     }
 
     private void DetectLostTarget()
@@ -116,24 +116,22 @@ public class PlayerPosition : MonoBehaviour
             targetLostTimer = 0;
             targetLostCount = 0;
             newTargetCount++;
-            if (newTargetCount > 3)
+            if (newTargetCount == 3)
             {
                 //Debug.Log("New target!");
-                debugTx.text = "New Target!";
                 newTargetCount = 0;
                 lostTarget = true;
                 thereIsTarget = false;
             }
         }
-        if (newPos < 0.6f)
+        if (newPos < targetLimit)
         {
             targetLostCount++;
-            if (targetLostCount > 15)
+            if (targetLostCount > 5)
             {
                 newTargetCount = 0;
                 targetLostCount = 0;
                 //Debug.Log("Lost!");
-                debugTx.text = "Lost!";
                 lostTarget = true;
                 thereIsTarget = false;
             }
