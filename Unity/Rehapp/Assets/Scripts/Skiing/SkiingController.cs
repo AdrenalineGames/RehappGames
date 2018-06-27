@@ -28,8 +28,8 @@ public class SkiingController : MonoBehaviour {
 
 
     void Update () {
-        //onGame = onGameB;
-        onGameB = onGame;
+        onGame = onGameB;
+        //onGameB = onGame;
         if (onGame)
         {
             gameTimer -= Time.deltaTime;
