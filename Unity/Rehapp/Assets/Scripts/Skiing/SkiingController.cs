@@ -103,8 +103,8 @@ public class SkiingController : MonoBehaviour {
         GlobalCam.camHeigth = globalCamHeigth;
         GlobalCam.useRearCam = useRaerGlobalCam;
         GlobalCam.SetGlobalCam();
-        //if (showCamScript != null)
-        //    showCamScript.StartShowCam();
+        if (showCamScript != null)
+            showCamScript.StartShowCam();
         playerScript.cam = GlobalCam.gameCam;
         ResetLevel();
         StartCoroutine(OnGame());

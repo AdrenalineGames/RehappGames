@@ -22,7 +22,7 @@ public class PlayerPosition : MonoBehaviour
     float[] accDataX = { 0, 0, 0, 0, 0, 0};
     float[] accDataY = { 0, 0, 0, 0, 0, 0};
     float[] accDataZ = { 0, 0, 0, 0, 0, 0};
-    float[] linearSpeed = { 0, 0, 0, 0, 0, 0 };
+    float[] linearSpeed = { 0, 0, 0, 0, 0};
     int init = 0;
     float lastPos = 0;
     float newPos = 0;
