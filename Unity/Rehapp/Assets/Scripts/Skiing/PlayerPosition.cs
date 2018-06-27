@@ -13,6 +13,7 @@ public class PlayerPosition : MonoBehaviour
     public float posAmplifier;
     public float matchDivider = 10000000;   //640x480 = 10000000, 160x120 = 500000
     public float targetLimit = 0.6f;    //640x480 = 4, 160x120 = 0.6
+    public Text debugTx;
 
     public static float PlayerFrontalSpeed = 0;
     public float distanceCovered = 0;
@@ -77,6 +78,7 @@ public class PlayerPosition : MonoBehaviour
                 camWidth = cam.width;
                 camHeight = cam.height;
                 NewTarget();
+                debugTx.text = "New!";
             }
             if (thereIsTarget && cam.didUpdateThisFrame)
             {
@@ -105,12 +107,13 @@ public class PlayerPosition : MonoBehaviour
         Array.Copy(linearSpeed, 0, linearSpeed, 1, linearSpeed.Length - 1);
         linearSpeed[0] = Math.Abs(moved);
 
-        if (linearSpeed[0] < 0.1 || linearSpeed[0] > 0.4)
+        if (linearSpeed[0] < 0.1)// || linearSpeed[0] > 0.4)
             PlayerFrontalSpeed = 0.1f;
         else
             PlayerFrontalSpeed = linearSpeed.Average() * speedUp;
 
         Debug.Log("Speed: " + PlayerFrontalSpeed);
+        debugTx.text = PlayerFrontalSpeed.ToString();
     }
 
     private void DetectLostTarget()
@@ -136,6 +139,7 @@ public class PlayerPosition : MonoBehaviour
                 newTargetCount = 0;
                 targetLostCount = 0;
                 //Debug.Log("Lost!");
+                debugTx.text = "Lost!";
                 lostTarget = true;
                 thereIsTarget = false;
             }

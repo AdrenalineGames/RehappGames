@@ -24,8 +24,8 @@ public class ShowCam : MonoBehaviour {
         gameObject.transform.position = new Vector3(GlobalCam.gameCam.width / 2, GlobalCam.gameCam.height / 2, 430);
     }
 
-    private void Update()
-    {
+    //private void Update()
+    //{
         //if (GlobalCam.gameCam != null)
         //    if (!GlobalCam.gameCam.isPlaying)
         //        cam.Stop();
@@ -33,7 +33,7 @@ public class ShowCam : MonoBehaviour {
         //    tex.SetPixels32(CameraTexture.GetPixels32());
         //    tex.Apply();
         //    GetComponent<Renderer>().material.mainTexture = tex;
-    }
+    //}
 
     //public void StopCamRecord()
     //{
