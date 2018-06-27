@@ -55,7 +55,7 @@ public class SkiingController : MonoBehaviour {
 
     private void RateSession()
     {
-        sessionScore = (float)Math.Floor(((6 / gameTime) * sessionScore));
+        sessionScore = (float)Math.Floor(((6 / ((gameTime/distanceBetweenFlags)-1)) * sessionScore));
         if (sessionScore > 5) sessionScore = 5;
         Debug.Log("Obtuviste una: " + ratings[(int)sessionScore]);
     }
