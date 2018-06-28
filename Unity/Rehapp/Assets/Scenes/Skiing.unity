@@ -2524,7 +2524,7 @@ MonoBehaviour:
   speedUp: 5
   posAmplifier: 10
   matchDivider: 1
-  targetLimit: 0.6
+  targetLimit: 0.7
   debugTx: {fileID: 1683431279}
   distanceCovered: 0
   cam: {fileID: 0}

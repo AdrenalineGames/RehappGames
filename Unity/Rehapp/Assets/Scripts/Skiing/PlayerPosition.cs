@@ -47,6 +47,7 @@ public class PlayerPosition : MonoBehaviour
     int matchPosY;
     int camWidth;
     int camHeight;
+    int tempCont = 0;
 
     private void OnEnable()
     {
@@ -78,7 +79,7 @@ public class PlayerPosition : MonoBehaviour
                 camWidth = cam.width;
                 camHeight = cam.height;
                 NewTarget();
-                debugTx.text = "New!";
+                //debugTx.text = "New!";
             }
             if (thereIsTarget && cam.didUpdateThisFrame)
             {
@@ -113,7 +114,7 @@ public class PlayerPosition : MonoBehaviour
             PlayerFrontalSpeed = linearSpeed.Average() * speedUp;
 
         Debug.Log("Speed: " + PlayerFrontalSpeed);
-        debugTx.text = PlayerFrontalSpeed.ToString();
+        //debugTx.text = PlayerFrontalSpeed.ToString();
     }
 
     private void DetectLostTarget()
@@ -123,7 +124,7 @@ public class PlayerPosition : MonoBehaviour
             targetLostTimer = 0;
             targetLostCount = 0;
             newTargetCount++;
-            if (newTargetCount == 3)
+            if (newTargetCount == 2)
             {
                 //Debug.Log("New target!");
                 newTargetCount = 0;
@@ -131,15 +132,17 @@ public class PlayerPosition : MonoBehaviour
                 thereIsTarget = false;
             }
         }
+        Debug.Log("NewPos" + newPos);
         if (newPos < targetLimit)
         {
             targetLostCount++;
             if (targetLostCount > 5)
             {
+                tempCont++;
                 newTargetCount = 0;
                 targetLostCount = 0;
                 //Debug.Log("Lost!");
-                debugTx.text = "Lost!";
+                debugTx.text = tempCont.ToString();
                 lostTarget = true;
                 thereIsTarget = false;
             }
@@ -159,6 +162,8 @@ public class PlayerPosition : MonoBehaviour
     private void NewTarget()
     {
         TakePic();
+        //byte[] bytes = tex.EncodeToPNG();
+        //File.WriteAllBytes(Application.persistentDataPath + "/frame.png", bytes);
 
         if (SkiingController.onGame)
             OcvMechanics.GetTarget(camImg, camWidth, camHeight, out targetCenterX, out targetCenterY);
