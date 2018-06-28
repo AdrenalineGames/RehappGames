@@ -20,6 +20,7 @@ public class PlayerPosition : MonoBehaviour
 
     Vector3 acc;
     Vector3 mean;
+    float prevMeanX = 0;
     float[] accDataX = { 0, 0, 0, 0, 0, 0};
     float[] accDataY = { 0, 0, 0, 0, 0, 0};
     float[] accDataZ = { 0, 0, 0, 0, 0, 0};
@@ -59,15 +60,16 @@ public class PlayerPosition : MonoBehaviour
 
     private void LateUpdate()
     {
-        acc.x = Input.acceleration.x;
-        acc.y = Input.acceleration.y;
-        acc.z = Input.acceleration.z;
-
-
         //timer += Time.deltaTime;
 
         if (SkiingController.onGame)
         {
+            acc.x = Input.acceleration.x;
+            acc.y = Input.acceleration.y;
+            acc.z = Input.acceleration.z;
+            if (acc.x - prevMeanX > 0.3f)
+                TargetLost();
+            prevMeanX = acc.x;
             targetLostTimer += Time.deltaTime;
             distanceCovered += PlayerFrontalSpeed * Time.deltaTime;
             GetAccArray();
@@ -86,7 +88,7 @@ public class PlayerPosition : MonoBehaviour
                 NewTarget();
                 //debugTx.text = "New!";
             }
-            if (thereIsTarget && cam.didUpdateThisFrame)
+            if (thereIsTarget && cam.didUpdateThisFrame && Time.deltaTime != 0)
             {
                 //tempCont++;
                 //Debug.Log(tempCont);
@@ -105,13 +107,18 @@ public class PlayerPosition : MonoBehaviour
 
     public void PlayerSpeedMultiplier(float mD)
     {
-        matchDivider = mD;
+        speedUp = mD;
+    }
+
+    public void SetMatchLimit(float ml)
+    {
+        targetLimit = ml;
     }
 
     private void SetPlayerSpeed()
     {
         //Debug.Log("Match: " + matchVal);
-        newPos = (float)(matchVal / matchDivider);
+        newPos = (float)(matchVal);
         moved = newPos - lastPos;
         lastPos = newPos;
         Array.Copy(linearSpeed, 0, linearSpeed, 1, linearSpeed.Length - 1);
@@ -127,6 +134,12 @@ public class PlayerPosition : MonoBehaviour
         //debugTx.text = PlayerFrontalSpeed.ToString();
     }
 
+    void TargetLost()
+    {
+        lostTarget = true;
+        thereIsTarget = false;
+    }
+
     private void DetectLostTarget()
     {
         if (targetLostTimer > 2)
@@ -138,8 +151,7 @@ public class PlayerPosition : MonoBehaviour
             {
                 //Debug.Log("New target!");
                 newTargetCount = 0;
-                lostTarget = true;
-                thereIsTarget = false;
+                TargetLost();
             }
         }
         //Debug.Log("NewPos" + newPos);
@@ -153,8 +165,7 @@ public class PlayerPosition : MonoBehaviour
                 targetLostCount = 0;
                 //Debug.Log("Lost!");
                 debugTx.text = tempCont.ToString();
-                lostTarget = true;
-                thereIsTarget = false;
+                TargetLost();
             }
         }
     }

@@ -5,7 +5,8 @@ using UnityEngine;
 public class FlagPosition : MonoBehaviour {
     private void Update()
     {
-        Position();
+        //if(Time.deltaTime != 0)
+            Position();
     }
 
     private void Position()

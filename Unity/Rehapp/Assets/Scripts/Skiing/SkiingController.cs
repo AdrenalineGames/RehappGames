@@ -17,6 +17,7 @@ public class SkiingController : MonoBehaviour {
     public int globalCamWidth;
     public int globalCamHeigth;
     public bool useRaerGlobalCam;
+    public float playerLevel;
 
     public static bool onGame = false;
 
@@ -25,6 +26,10 @@ public class SkiingController : MonoBehaviour {
     int playerDistance;
     char[] ratings = { 'E', 'D', 'C', 'B', 'A', 'S' };
 
+    private void OnEnable()
+    {
+        playerLevel = GameManager.manager.skiingLevel/10;
+    }
 
     void Update () {
         if (onGame)
@@ -52,8 +57,10 @@ public class SkiingController : MonoBehaviour {
 
     private void RateSession()
     {
-        sessionScore = (float)Math.Floor(((6 / ((gameTime/distanceBetweenFlags)-1)) * sessionScore));
+        sessionScore = (float)Math.Floor(((6 / ((gameTime/distanceBetweenFlags)-playerLevel)) * sessionScore));
         if (sessionScore > 5) sessionScore = 5;
+        if (sessionScore >= GameManager.manager.skiingLevel)
+            updateLevel((int)sessionScore);
         Debug.Log("Obtuviste una: " + ratings[(int)sessionScore]);
     }
 
