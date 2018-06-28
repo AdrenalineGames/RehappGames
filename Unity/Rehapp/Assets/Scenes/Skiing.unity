@@ -1844,7 +1844,6 @@ MonoBehaviour:
   globalCamWidth: 160
   globalCamHeigth: 120
   useRaerGlobalCam: 1
-  onGameB: 0
 --- !u!4 &1192604407
 Transform:
   m_ObjectHideFlags: 0
@@ -2521,7 +2520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763b64adf57308b439b124a73d14e99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedUp: 5
+  speedUp: 1
   posAmplifier: 10
   matchDivider: 1
   targetLimit: 0.7

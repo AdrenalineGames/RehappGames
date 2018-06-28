@@ -23,7 +23,8 @@ public class PlayerPosition : MonoBehaviour
     float[] accDataX = { 0, 0, 0, 0, 0, 0};
     float[] accDataY = { 0, 0, 0, 0, 0, 0};
     float[] accDataZ = { 0, 0, 0, 0, 0, 0};
-    float[] linearSpeed = { 0, 0, 0, 0, 0};
+    float[] linearSpeed = { 0, 0, 0, 0, 0 };
+    //float linearSpeed = 0;
     int init = 0;
     float lastPos = 0;
     float newPos = 0;
@@ -48,18 +49,22 @@ public class PlayerPosition : MonoBehaviour
     int camWidth;
     int camHeight;
     int tempCont = 0;
+    //float timer;
+    //float pTimer = 0;
 
     private void OnEnable()
     {
         Debug.Log(Application.persistentDataPath);
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         acc.x = Input.acceleration.x;
         acc.y = Input.acceleration.y;
         acc.z = Input.acceleration.z;
 
+
+        //timer += Time.deltaTime;
 
         if (SkiingController.onGame)
         {
@@ -83,6 +88,10 @@ public class PlayerPosition : MonoBehaviour
             }
             if (thereIsTarget && cam.didUpdateThisFrame)
             {
+                //tempCont++;
+                //Debug.Log(tempCont);
+                //debugTx.text = (1/(timer-pTimer)).ToString()+" fps";
+                //pTimer = timer;
                 TargetMatch();
 
                 DetectLostTarget();
@@ -106,7 +115,8 @@ public class PlayerPosition : MonoBehaviour
         moved = newPos - lastPos;
         lastPos = newPos;
         Array.Copy(linearSpeed, 0, linearSpeed, 1, linearSpeed.Length - 1);
-        linearSpeed[0] = Math.Abs(moved);
+        linearSpeed[0] = Math.Abs(moved/Time.deltaTime);
+        //linearSpeed = Math.Abs(moved/Time.deltaTime);
 
         if (linearSpeed[0] < 0.1)// || linearSpeed[0] > 0.4)
             PlayerFrontalSpeed = 0.1f;
@@ -132,11 +142,11 @@ public class PlayerPosition : MonoBehaviour
                 thereIsTarget = false;
             }
         }
-        Debug.Log("NewPos" + newPos);
+        //Debug.Log("NewPos" + newPos);
         if (newPos < targetLimit)
         {
             targetLostCount++;
-            if (targetLostCount > 5)
+            if (targetLostCount > 15)
             {
                 tempCont++;
                 newTargetCount = 0;

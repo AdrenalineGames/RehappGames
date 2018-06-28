@@ -19,7 +19,6 @@ public class SkiingController : MonoBehaviour {
     public bool useRaerGlobalCam;
 
     public static bool onGame = false;
-    public bool onGameB = false;
 
     float gameTimer;
     static float sessionScore;
@@ -28,8 +27,6 @@ public class SkiingController : MonoBehaviour {
 
 
     void Update () {
-        //onGame = onGameB;
-        onGameB = onGame;
         if (onGame)
         {
             gameTimer -= Time.deltaTime;
@@ -98,7 +95,7 @@ public class SkiingController : MonoBehaviour {
 
     public void StartGame()
     {
-        //Application.targetFrameRate = 30;
+        Application.targetFrameRate = 60;
         GlobalCam.camWidth = globalCamWidth;
         GlobalCam.camHeigth = globalCamHeigth;
         GlobalCam.useRearCam = useRaerGlobalCam;
