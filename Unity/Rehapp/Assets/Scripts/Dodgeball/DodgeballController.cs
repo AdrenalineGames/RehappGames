@@ -27,14 +27,10 @@ public class DodgeballController : MonoBehaviour {
     int sessionScore;
     int sessionLevel;
 
-    private void Awake()
-    {
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
-    }
 
     void OnEnable() {
         timeTx.text = ((int)gameTime).ToString();
-        sessionLevel = GameManager.manager.playerLevel;
+        sessionLevel = GameManager.manager.dodgeballLevel;
         pitchers = Instantiate(pitchersPrefab, new Vector3(320, 240, 2000), 
             Quaternion.Euler(180,0,0));
         ResetLevel();
@@ -48,19 +44,19 @@ public class DodgeballController : MonoBehaviour {
         }
         if (onGame)
         {
-            gameTime -= Time.deltaTime;
+            gameTime -= Time.deltaTime;     // Game chrono
             timeTx.text = ((int)gameTime).ToString();
             if(gameTime <= 0)          
                 onGame = false;       
         }
-        if (pitchers.GetComponent<Pitcher>().shootOver)
+        if (pitchers.GetComponent<Pitcher>().shootOver)     // Waits until ther is no balls in game
         {
             pitchers.GetComponent<Pitcher>().shootOver = false;
             Finish();
         }
     }
-    
-    public void SetSessionLevel(float lvl)
+
+    public void SetSessionLevel(float lvl)      // This game allows to modify the dificult from settings
     {
         sessionLevel = (int)lvl;
         pitchers.GetComponent<Pitcher>().SetDifficult(sessionLevel);
@@ -83,7 +79,7 @@ public class DodgeballController : MonoBehaviour {
     private void rateSession()
     {
         sessionScore = (int)Math.Round((5d* ((double)(globalScore - minPoints) / (maxPoints - minPoints))));
-        if(sessionLevel >= GameManager.manager.playerLevel)
+        if(sessionLevel >= GameManager.manager.dodgeballLevel)
             updateLevel(sessionScore);
     }
 
@@ -100,16 +96,16 @@ public class DodgeballController : MonoBehaviour {
                 modifyLevel = 0;
                 break;
             case 3:
-                modifyLevel = 1 + sessionLevel - GameManager.manager.playerLevel;
+                modifyLevel = 1 + sessionLevel - GameManager.manager.dodgeballLevel;
                 break;
             case 4:
-                modifyLevel = 2 + sessionLevel - GameManager.manager.playerLevel;
+                modifyLevel = 2 + sessionLevel - GameManager.manager.dodgeballLevel;
                 break;
             case 5:
-                modifyLevel = 3 + sessionLevel - GameManager.manager.playerLevel;
+                modifyLevel = 3 + sessionLevel - GameManager.manager.dodgeballLevel;
                 break;
         }
-        GameManager.manager.SetPlayerLvl(GameManager.manager.playerLevel += modifyLevel);
+        GameManager.manager.SetDodgeballLvl(GameManager.manager.dodgeballLevel += modifyLevel);
     }
 
     public void AddScore(int score)

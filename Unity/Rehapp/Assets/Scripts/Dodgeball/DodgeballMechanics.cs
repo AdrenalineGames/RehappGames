@@ -17,14 +17,18 @@ public class DodgeballMechanics : MonoBehaviour {
     public int globalCamWidth;
     public int globalCamHeigth;
     public bool useRaerGlobalCam;
+    public float backgroundTemporizer = 4;
     Texture2D tex;
 
-    public Text debugTx;
+    //public Text debugTx;
     int[] hullPoints = new int[120];
     int hullLen = 0;
+    bool settingBackground = false;
+    float settingBackgroundTemporizer;
     WebCamTexture cam;
 
-    public GameObject instructionsTx;
+    public GameObject instructionsPanel;
+    public Text instructionsTxt;
     public GameObject startBtn;
     public GameObject pivot;
     public GameObject initPanel;
@@ -33,12 +37,13 @@ public class DodgeballMechanics : MonoBehaviour {
     // Use this for initialization
     void OnEnable()
     {
-        debugTx.text = OcvMechanics.DllTest().ToString();
+        //debugTx.text = OcvMechanics.DllTest().ToString();
         tex = new Texture2D(640, 480, TextureFormat.RGB24, false);
         mesh = new Mesh();
         mf = GetComponent<MeshFilter>();
         mf.sharedMesh = mesh;
         cam = new WebCamTexture();
+        settingBackgroundTemporizer = backgroundTemporizer;
     }
 
     public void StopCam()
@@ -93,12 +98,18 @@ public class DodgeballMechanics : MonoBehaviour {
             GetComponent<MeshCollider>().sharedMesh = null;
     }
 
-    public Mesh GetBodyMesh()
+    public Mesh GetBodyMesh()   // This is called from the player shadow object
     {
         return mesh;
     }
 
-    void LateUpdate () {
+    void LateUpdate ()
+    {
+        if (settingBackground)  //Temporizer for the player to know how much time ha has to stay in the correct side
+        {
+            settingBackgroundTemporizer -= Time.deltaTime;
+            instructionsTxt.text = "Párate aquí " + ((int)settingBackgroundTemporizer).ToString();
+        }
         if (cam.isPlaying && backgroundB != null && cam.didUpdateThisFrame)
         {
             tex.SetPixels32(cam.GetPixels32());
@@ -119,19 +130,22 @@ public class DodgeballMechanics : MonoBehaviour {
 
     IEnumerator SetBg()
     {
-        instructionsTx.gameObject.SetActive(true);
-        SetPlayCam();
-        yield return new WaitForSeconds(3);
-        Texture2D tex = new Texture2D(cam.width, cam.height, TextureFormat.RGB24, false);
+        instructionsPanel.gameObject.SetActive(true);
+        SetPlayCam();   // Actives the game cam
+        settingBackground = true;
+        yield return new WaitForSeconds(backgroundTemporizer);     // Waits until the player is in the correct position
+        Texture2D tex = new Texture2D(cam.width, cam.height, TextureFormat.RGB24, false);   // Takes halve picture of the backgroun
         tex.SetPixels(0, 0, cam.width / 2, cam.height, cam.GetPixels(0, 0, cam.width / 2, cam.height));
         yield return new WaitForSeconds(1);
-        pivot.transform.localPosition = new Vector3(cam.width / 2, 0,0);
-        yield return new WaitForSeconds(3);
-        tex.SetPixels(cam.width / 2, 0, cam.width / 2, cam.height, cam.GetPixels(cam.width / 2, 0, cam.width / 2, cam.height));
+        pivot.transform.localPosition = new Vector3(cam.width / 2, 0,0);    // Moves the canvas to guide the player
+        settingBackgroundTemporizer = backgroundTemporizer;         // Restart background capture temporizer
+        yield return new WaitForSeconds(backgroundTemporizer);     // Waits until the player is in the correct position
+        tex.SetPixels(cam.width / 2, 0, cam.width / 2, cam.height, cam.GetPixels(cam.width / 2, 0, cam.width / 2, cam.height));  // Takes the other halve picture of the backgroun
         tex.Apply();
         backgroundB = tex.GetRawTextureData();
+        settingBackground = false;
         yield return new WaitForSeconds(1);
-        instructionsTx.gameObject.SetActive(false);
+        instructionsPanel.gameObject.SetActive(false);     // Deactive instructios pannel
         DodgeballController.startGame = true;
         initPanel.gameObject.SetActive(false);
     }

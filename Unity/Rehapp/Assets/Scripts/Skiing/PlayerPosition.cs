@@ -14,6 +14,7 @@ public class PlayerPosition : MonoBehaviour
     public float matchDivider = 10000000;   //640x480 = 10000000, 160x120 = 500000
     public float targetLimit = 0.6f;    //640x480 = 4, 160x120 = 0.6
     public Text debugTx;
+    public SkiingController SK;
 
     public static float PlayerFrontalSpeed = 0;
     public float distanceCovered = 0;
@@ -34,7 +35,7 @@ public class PlayerPosition : MonoBehaviour
     int newTargetCount = 0;
     float targetLostTimer = 0;
 
-    public WebCamTexture cam;
+    public WebCamTexture cam;   // assigned in skiing controller after global cam is setted
     Texture2D tex;
     Texture2D targetTex;
 
@@ -53,12 +54,12 @@ public class PlayerPosition : MonoBehaviour
     //float timer;
     //float pTimer = 0;
 
-    private void OnEnable()
-    {
-        Debug.Log(Application.persistentDataPath);
-    }
+    //private void OnEnable()
+    //{
+    //    Debug.Log(Application.persistentDataPath);
+    //}
 
-    private void LateUpdate()
+    private void LateUpdate()   // Late update to let the cam update
     {
         //timer += Time.deltaTime;
 
@@ -67,28 +68,30 @@ public class PlayerPosition : MonoBehaviour
             acc.x = Input.acceleration.x;
             acc.y = Input.acceleration.y;
             acc.z = Input.acceleration.z;
-            if (acc.x - prevMeanX > 0.3f)
+
+            if (acc.x - prevMeanX > 0.3f)   // To avoid increment speed from yawing
                 TargetLost();
             prevMeanX = acc.x;
-            targetLostTimer += Time.deltaTime;
+
+            targetLostTimer += Time.deltaTime;  // For search new target
             distanceCovered += PlayerFrontalSpeed * Time.deltaTime;
             GetAccArray();
             GetOffset();
-            if (init < 6)
+            if (init < 6)   // Waits until the accArray is filled
                 init++;
             else
             {
                 PlayerHorizontalPos();
             }
 
-            if (lostTarget)
+            if (lostTarget)     // Detects and cut the new target
             {
                 camWidth = cam.width;
                 camHeight = cam.height;
                 NewTarget();
                 //debugTx.text = "New!";
             }
-            if (thereIsTarget && cam.didUpdateThisFrame && Time.deltaTime != 0)
+            if (thereIsTarget && cam.didUpdateThisFrame && Time.deltaTime != 0)     // Match the target and calculate speed
             {
                 //tempCont++;
                 //Debug.Log(tempCont);
@@ -112,7 +115,7 @@ public class PlayerPosition : MonoBehaviour
 
     public void SetMatchLimit(float ml)
     {
-        targetLimit = ml;
+        targetLimit = ml;   // Minimum match to set a target as lost
     }
 
     private void SetPlayerSpeed()
@@ -140,7 +143,7 @@ public class PlayerPosition : MonoBehaviour
         thereIsTarget = false;
     }
 
-    private void DetectLostTarget()
+    private void DetectLostTarget()     // A target is los if the match is below the limito or if has passed 4 seconds
     {
         if (targetLostTimer > 2)
         {
@@ -209,7 +212,7 @@ public class PlayerPosition : MonoBehaviour
         transform.position = new Vector3(mean.x, transform.position.y, transform.position.z)*posAmplifier;
     }
 
-    private void CutTarget()
+    private void CutTarget()    // Cuts the target avoiding overflow
     {
         float minX;
         float maxX;
@@ -283,7 +286,7 @@ public class PlayerPosition : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Yay!");
-        SkiingController.PlayerScore(1);
+        //Debug.Log("Yay!");
+        SK.PlayerScore(1);
     }
 }

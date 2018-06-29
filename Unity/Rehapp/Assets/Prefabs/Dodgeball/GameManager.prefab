@@ -53,6 +53,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: Nah
   playerPw: Nah
-  playerLevel: 0
+  dodgeballLevel: 0
   marathonLevel: 0
   skiingLevel: 0

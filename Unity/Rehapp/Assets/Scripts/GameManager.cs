@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager manager;
     public string playerName;
     public string playerPw;
-    public int playerLevel;
+    public int dodgeballLevel;
     public int marathonLevel;
     public int skiingLevel;
 
@@ -25,27 +25,36 @@ public class GameManager : MonoBehaviour {
         playerPw = pw.text;
     }
 
-    public void SetPlayerLvl(int lvl)
+    public void SetDodgeballLvl(int lvl)
     {
-        playerLevel = lvl;
+        dodgeballLevel = lvl;
         Save();
     }
 
-    public void SetSkiingvl(int lvl)
+    public void SetSkiingLvl(int lvl)
     {
         skiingLevel = lvl;
         Save();
     }
 
+    public void SetMarathonLvl(int lvl)
+    {
+        marathonLevel = lvl;
+        Save();
+    }
+
     // Use this for initialization
-    void Awake () {
+    void Awake ()
+    {
+        //Debug.Log(Application.persistentDataPath);
         if (manager == null)
             manager = this;
         else if (manager != this)
             Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
         Load();
-	}
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+    }
 
     public void Save()
     {
@@ -55,7 +64,7 @@ public class GameManager : MonoBehaviour {
         PlayerData data = new PlayerData();
         data.playerName = "";
         data.playerPw = "";
-        data.playerLevel = playerLevel;
+        data.dodgeballLevel = dodgeballLevel;
         data.skiingLevel = skiingLevel;
         data.marathonLevel = marathonLevel;
 
@@ -75,7 +84,7 @@ public class GameManager : MonoBehaviour {
 
             playerName = data.playerName;
             playerPw = data.playerPw;
-            playerLevel = data.playerLevel;
+            dodgeballLevel = data.dodgeballLevel;
             skiingLevel = data.skiingLevel;
             marathonLevel = data.marathonLevel;
         }
@@ -90,7 +99,7 @@ class PlayerData
 {
     public string playerName;
     public string playerPw;
-    public int playerLevel;
+    public int dodgeballLevel;
     public int marathonLevel;
     public int skiingLevel;
 }

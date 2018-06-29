@@ -7,7 +7,7 @@ public class ParentMesh : MonoBehaviour {
 
 	void Update () {
         if (dM.playerDetected)
-            GetComponent<MeshFilter>().sharedMesh = dM.GetBodyMesh();
+            GetComponent<MeshFilter>().sharedMesh = dM.GetBodyMesh();   // This mesh shows the player position, is in another GO because this must face the other side of the players collider
         else
             GetComponent<MeshFilter>().sharedMesh = null;
 

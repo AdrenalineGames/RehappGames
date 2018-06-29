@@ -50,7 +50,7 @@ public class Pitcher : MonoBehaviour {
             {
                 if (randomBall == 0)
                 {
-                    // outside
+                    // Shoots Balls outside the mesh of the player
                     float xPos = Random.Range(5, globalCamWidth - 5);
                     float yPos;
                     if (xPos < playerMesh.bounds.max.x && xPos > playerMesh.bounds.min.x)
@@ -62,26 +62,28 @@ public class Pitcher : MonoBehaviour {
                 }
                 else
                 {
-                    //Inside
+                    // Shoots BombBalls iside the mesh of the player
                     transform.position = new Vector3(Random.Range(playerMesh.bounds.min.x, playerMesh.bounds.max.x),
                         Random.Range(playerMesh.bounds.min.y, playerMesh.bounds.max.y), transform.position.z);
                     minPoints--;
                 }
+                //transform.position = new Vector3(200, 200, transform.position.z);   //Coliision Tests
                 ballRigid = Instantiate(Ball[randomBall], transform.position, transform.rotation) as Rigidbody;
 
             }
-            else
+            else    // If no player is detected, shoots only Balls randomly to force the player to come back
             {
                 transform.position = new Vector3(Random.Range(5, globalCamWidth - 5),
                     Random.Range(5, globalCamHeigth - 5), transform.position.z);
+                //transform.position = new Vector3(200, 200, transform.position.z);   //Coliision Tests
                 ballRigid = Instantiate(Ball[0], transform.position, transform.rotation) as Rigidbody;
                 maxPoints++;
             }
             yield return new WaitForSeconds(fireRateR);
             ballRigid.AddForce(transform.forward * forceAmountR);
-            if (!DodgeballController.onGame)
+            if (!DodgeballController.onGame)    
             {
-                while (ballRigid != null)
+                while (ballRigid != null)   // Waits until the last ball is destroyed to tell the controller the game is over
                     yield return null;
                 shootOver = true;
                 break;
@@ -89,7 +91,7 @@ public class Pitcher : MonoBehaviour {
         }
     }
 
-    public void SetDifficult(int lvl)
+    public void SetDifficult(int lvl)   // This function is called from the DodgeballController
     {
         fireRate = -0.09f * lvl + 5;
         forceAmount = 1700 * lvl + 15000;
