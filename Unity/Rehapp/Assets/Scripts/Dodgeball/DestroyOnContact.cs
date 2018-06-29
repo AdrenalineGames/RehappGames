@@ -5,12 +5,12 @@ using UnityEngine;
 public class DestroyOnContact : MonoBehaviour {
 
     int score;
-    private GameController gameController;
+    private DodgeballController gameController;
     public Collider[] ignoreCollider;
 
     void Start()
     {
-        gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+        gameController = GameObject.FindWithTag("GameController").GetComponent<DodgeballController>();
     }
 
     private void OnEnable()

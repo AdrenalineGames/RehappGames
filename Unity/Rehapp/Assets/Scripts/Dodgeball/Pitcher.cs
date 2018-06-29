@@ -20,11 +20,6 @@ public class Pitcher : MonoBehaviour {
     int globalCamHeigth;
     Mesh playerMesh;
 
-    void Start()
-    {
-        globalCamWidth = (int)GlobalCam.gameCam.width;
-        globalCamHeigth = (int)GlobalCam.gameCam.height;
-    }
 
     void OnEnable()
     {
@@ -35,13 +30,15 @@ public class Pitcher : MonoBehaviour {
 
     public void StartShooting()
     {
+        globalCamWidth = (int)GlobalCam.gameCam.width;
+        globalCamHeigth = (int)GlobalCam.gameCam.height;
         StartCoroutine(ShootBall());
     }
 
     IEnumerator ShootBall()
     {
         yield return new WaitForSeconds(2);
-        GameController.onGame = true;
+        DodgeballController.onGame = true;
         while (true)
         {
             //transform.position = new Vector3(Random.Range(5, 635), Random.Range(5, 475), transform.position.z);
@@ -82,7 +79,7 @@ public class Pitcher : MonoBehaviour {
             }
             yield return new WaitForSeconds(fireRateR);
             ballRigid.AddForce(transform.forward * forceAmountR);
-            if (!GameController.onGame)
+            if (!DodgeballController.onGame)
             {
                 while (ballRigid != null)
                     yield return null;

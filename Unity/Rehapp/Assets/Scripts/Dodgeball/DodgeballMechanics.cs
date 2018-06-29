@@ -14,6 +14,9 @@ public class DodgeballMechanics : MonoBehaviour {
     byte[] camImg;
     public float moveSpeed;
     public bool playerDetected = false;
+    public int globalCamWidth;
+    public int globalCamHeigth;
+    public bool useRaerGlobalCam;
     Texture2D tex;
 
     public Text debugTx;
@@ -35,11 +38,7 @@ public class DodgeballMechanics : MonoBehaviour {
         mesh = new Mesh();
         mf = GetComponent<MeshFilter>();
         mf.sharedMesh = mesh;
-    }
-
-    private void Start()
-    {
-        cam = GlobalCam.gameCam;
+        cam = new WebCamTexture();
     }
 
     public void StopCam()
@@ -99,7 +98,7 @@ public class DodgeballMechanics : MonoBehaviour {
         return mesh;
     }
 
-    void Update () {
+    void LateUpdate () {
         if (cam.isPlaying && backgroundB != null && cam.didUpdateThisFrame)
         {
             tex.SetPixels32(cam.GetPixels32());
@@ -121,6 +120,7 @@ public class DodgeballMechanics : MonoBehaviour {
     IEnumerator SetBg()
     {
         instructionsTx.gameObject.SetActive(true);
+        SetPlayCam();
         yield return new WaitForSeconds(3);
         Texture2D tex = new Texture2D(cam.width, cam.height, TextureFormat.RGB24, false);
         tex.SetPixels(0, 0, cam.width / 2, cam.height, cam.GetPixels(0, 0, cam.width / 2, cam.height));
@@ -132,7 +132,19 @@ public class DodgeballMechanics : MonoBehaviour {
         backgroundB = tex.GetRawTextureData();
         yield return new WaitForSeconds(1);
         instructionsTx.gameObject.SetActive(false);
-        GameController.startGame = true;
+        DodgeballController.startGame = true;
         initPanel.gameObject.SetActive(false);
+    }
+
+    void SetPlayCam()
+    {
+        GlobalCam.camWidth = globalCamWidth;
+        GlobalCam.camHeigth = globalCamHeigth;
+        GlobalCam.useRearCam = useRaerGlobalCam;
+        GlobalCam.SetGlobalCam();
+        cam = GlobalCam.gameCam;
+        ShowCam sc = GameObject.Find("Background").GetComponent<ShowCam>();
+        if(sc != null)
+            sc.StartShowCam();
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 
-public class GameController : MonoBehaviour {
+public class DodgeballController : MonoBehaviour {
 
     public GameObject pauseBtn;
     public Text scoreTx;

@@ -6,7 +6,7 @@ public class FlagPosition : MonoBehaviour {
     private void Update()
     {
         //if(Time.deltaTime != 0)
-            Position();
+        Position();
     }
 
     private void Position()
