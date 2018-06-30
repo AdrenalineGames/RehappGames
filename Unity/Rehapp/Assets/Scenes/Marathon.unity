@@ -124,7 +124,6 @@ GameObject:
   - component: {fileID: 43269013}
   - component: {fileID: 43269012}
   - component: {fileID: 43269011}
-  - component: {fileID: 43269014}
   m_Layer: 5
   m_Name: BackB
   m_TagString: Untagged
@@ -146,11 +145,11 @@ RectTransform:
   m_Father: {fileID: 1621166700}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0.38339588}
-  m_AnchoredPosition: {x: 94, y: -25}
-  m_SizeDelta: {x: -296.90002, y: -208.2}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0.002492, y: 94}
+  m_SizeDelta: {x: 624.405, y: 118.8}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &43269011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,8 +189,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 43269014}
-        m_MethodName: LoadSceneIndex
+      - m_Target: {fileID: 449214858}
+        m_MethodName: LoadScene
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -258,17 +257,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 43269009}
---- !u!114 &43269014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 43269009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ded204c4f644347a453f4edbcb1d54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &173469266
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,11 +523,11 @@ RectTransform:
   m_Father: {fileID: 1621166700}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 136.5}
+  m_SizeDelta: {x: 1280, y: 717.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &325752625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -589,8 +577,10 @@ GameObject:
   - component: {fileID: 449214855}
   - component: {fileID: 449214854}
   - component: {fileID: 449214856}
+  - component: {fileID: 449214857}
+  - component: {fileID: 449214858}
   m_Layer: 0
-  m_Name: Pedometer
+  m_Name: MarathonController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -614,8 +604,10 @@ MonoBehaviour:
   initStepCount: 3
   kernellDistribution: 2
   presision: 0.8
+  steps: 3
   onPocket: 0
   lockPanel: {fileID: 197964536}
+  sessionGoal: 0
 --- !u!4 &449214855
 Transform:
   m_ObjectHideFlags: 0
@@ -638,6 +630,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 550b0da8142aa4844a1fb40dcc0a8966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &449214857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 449214853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b76d7762472cc2648a9ba151d13e41ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLvl: 0
+  maxGoal: 1210
+  minGoal: 10
+  maxStepSpeed: 0.5
+  minStepSpeed: 2
+  goalText: {fileID: 325752625}
+  pedometer: {fileID: 449214854}
+--- !u!114 &449214858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 449214853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926f70db8706d2743ab4e1ba550a5479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &693239243
@@ -674,8 +695,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 1, y: 0.38339588}
-  m_AnchoredPosition: {x: -63, y: -25}
-  m_SizeDelta: {x: -311.3, y: -208.2}
+  m_AnchoredPosition: {x: -320, y: 156.84909}
+  m_SizeDelta: {x: -15.6, y: -208.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &693239246
 MonoBehaviour:
@@ -716,8 +737,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 449214854}
-        m_MethodName: StartCapturing
+      - m_Target: {fileID: 449214857}
+        m_MethodName: NewGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -829,7 +850,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Back
+  m_Text: "Ir al men\xFA principal"
 --- !u!222 &761255271
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -975,7 +996,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Iniciar/Parar
+  m_Text: Nuevo Juego
 --- !u!222 &1627440342
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1091,7 +1112,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: State
+  m_Text: Estado
 --- !u!222 &1691046877
 CanvasRenderer:
   m_ObjectHideFlags: 0

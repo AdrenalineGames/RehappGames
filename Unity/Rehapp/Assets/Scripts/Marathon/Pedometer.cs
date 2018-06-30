@@ -8,7 +8,7 @@ using System.Linq;
 
 public class Pedometer : MonoBehaviour {
     bool cap = false;       //Capturing accelerometer?
-    bool capKernell = false;    //Capturing for the first time?
+    public bool capKernell = false;    //Capturing for the first time?
     float kernellTime = 0;
     public Text counterTx;
     public Text state;
@@ -18,13 +18,14 @@ public class Pedometer : MonoBehaviour {
     public int kernellDistribution = 2;
     public float presision = 0.79f;
     int stepRestriction = 5; //Para que no cuente pasos en menos de medio segundo
-    public static int steps = 3;
+    public int steps = 3;
     float xAcc;
     float yAcc;
     float zAcc;
     Vector3 accSelected;
     public bool onPocket = false;
     public GameObject lockPanel;
+    public int sessionGoal;
 
     //List<float> xKernellData = new List<float>();
     float[] xKernellData = { };
@@ -198,13 +199,13 @@ public class Pedometer : MonoBehaviour {
                     {
                         steps++;
                         stepRestriction = 0;
+                        counterTx.text = steps.ToString() + " de " + sessionGoal;
                     }
-                    if (stepRestriction > 30)   // Reinicia la captura del kernell después de 3 segundos
+                    if (stepRestriction > 40)   // Reinicia la captura del kernell después de 3 segundos
                     {
                         ResetKernell();
                         Debug.Log("Kernell lost, getting new");
                     }
-                    counterTx.text = steps.ToString();
                 }
             }
         }
