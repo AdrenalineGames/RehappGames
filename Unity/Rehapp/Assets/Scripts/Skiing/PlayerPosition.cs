@@ -46,8 +46,8 @@ public class PlayerPosition : MonoBehaviour
     bool lostTarget = true;
     bool thereIsTarget = false;
     double matchVal;
-    int matchPosX;
-    int matchPosY;
+    int matchPosX = 0;
+    int matchPosY = 0;
     int camWidth;
     int camHeight;
     int tempCont = 0;

@@ -18,7 +18,7 @@ public class Pedometer : MonoBehaviour {
     public int kernellDistribution = 2;
     public float presision = 0.79f;
     int stepRestriction = 5; //Para que no cuente pasos en menos de medio segundo
-    int steps = 0;
+    public static int steps = 3;
     float xAcc;
     float yAcc;
     float zAcc;
@@ -34,15 +34,10 @@ public class Pedometer : MonoBehaviour {
     float[] realTimeData = {0,0,0,0,0,0};
 
 
-    private void Awake()
-    {
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
-    }
-
     // Use this for initialization
     void Start()
     {
-        counterTx.text = OcvMechanics.DllTest().ToString();
+        //counterTx.text = OcvMechanics.DllTest().ToString();
         PAProximity.messageReceiver = gameObject;
     //    float[] testTm = { 0.1f, 0.5f, 2.8f };
     //    Debug.Log(string.Join(" ", testTm.Select(x => x.ToString()).ToArray()));
@@ -54,6 +49,7 @@ public class Pedometer : MonoBehaviour {
 
     private void Update()
     {
+        OnProximityChange(PAProximity.proximity);
         if (kernellTime < (oneStep * initStepCount) && onPocket)
         {
             kernellTime += Time.deltaTime;
@@ -65,7 +61,6 @@ public class Pedometer : MonoBehaviour {
             //Encender pantalla
             lockPanel.SetActive(false);
         }
-        OnProximityChange(PAProximity.proximity);
     }
 
     void OnProximityChange(PAProximity.Proximity proximity)
@@ -83,10 +78,12 @@ public class Pedometer : MonoBehaviour {
             kernellTime = 0.0f;
             cap = true;
             capKernell = true;
+            stepRestriction = 0;
             //state.text = ("New walk"+kernellTime.ToString());
             state.text = ("Guarda el celular en el bolsillo");
             InvokeRepeating("MarchCaptureAcc", movilToPocket, 0.1f);
-            GetComponent<AccCapturer>().StartCapturing(movilToPocket);
+            movilToPocket = 2;
+            //GetComponent<AccCapturer>().StartCapturing(movilToPocket);
         }
         else
         {
@@ -95,7 +92,6 @@ public class Pedometer : MonoBehaviour {
             yKernellData = new float[0];
             zKernellData = new float[0];
             cap = false;
-            steps = 3;
         }
     }
 
@@ -135,7 +131,7 @@ public class Pedometer : MonoBehaviour {
             xAcc = Input.acceleration.x;
             yAcc = Input.acceleration.y;
             zAcc = Input.acceleration.z;
-            if (kernellTime < (oneStep * initStepCount))
+            if (kernellTime < (oneStep * initStepCount))    //Espera 6 segundos a que capture datos de los acelerometros en cada array
             {
                 state.text = ("Adquiring data for Kernell");
                 xKernellData = xKernellData.Concat(new float[] { xAcc }).ToArray();
@@ -144,7 +140,7 @@ public class Pedometer : MonoBehaviour {
             }
             else
             {
-                if (capKernell)
+                if (capKernell)     //Esto solo ocurre una vez para seleccionar el kernell de los datos almacenados
                 {
                     capKernell = false;
                     //Detectar kernell
@@ -179,7 +175,7 @@ public class Pedometer : MonoBehaviour {
                     }
                     state.text = ("Kernell: " + string.Join(",", kernell.Select(p => p.ToString()).ToArray()));
                 }
-                else
+                else    // After having the kernell, it is used to counter steps
                 {
                     //Detectar pasos con el kernell
                     state.text = ("Using Kernell");
@@ -194,7 +190,7 @@ public class Pedometer : MonoBehaviour {
                             fixed (float* tmp = &kernell[0])
                             {
                                 result = OcvMechanics.MatchTemplate(src, realTimeData.Length, tmp, kernell.Length);
-                                stepRestriction++;
+                                stepRestriction++;      //No cuenta pasos dentro de 0.5s despupes del anterior
                             }
                         }
                     }
@@ -203,9 +199,21 @@ public class Pedometer : MonoBehaviour {
                         steps++;
                         stepRestriction = 0;
                     }
+                    if (stepRestriction > 30)   // Reinicia la captura del kernell después de 3 segundos
+                    {
+                        ResetKernell();
+                        Debug.Log("Kernell lost, getting new");
+                    }
                     counterTx.text = steps.ToString();
                 }
             }
         }
+    }
+
+    private void ResetKernell()
+    {
+        StartCapturing();
+        movilToPocket = 0;
+        StartCapturing();
     }
 }
