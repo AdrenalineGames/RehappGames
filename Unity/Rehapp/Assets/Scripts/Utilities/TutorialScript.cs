@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class TutorialScript : MonoBehaviour {
 
     public GameObject tutorialPanel;
-    public GameObject initPanel;
     public GameObject[] tutos;
 
     int tutoNum;

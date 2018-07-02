@@ -13,6 +13,7 @@ public class SkiingController : MonoBehaviour {
     public PlayerPosition playerScript;
     public GameObject pauseBtn;
     public Text scoreTx;
+    public TutorialScript tutoScript;
 
     public float gameTime = 10;
     public int distanceBetweenFlags;
@@ -28,9 +29,29 @@ public class SkiingController : MonoBehaviour {
     int playerDistance;
     char[] ratings = { 'E', 'D', 'C', 'B', 'A', 'S' };
 
+
+    private void Start()
+    {
+        if (GameManager.manager.firstTimeSki)
+            StartTuto();
+    }
+
+    public void StartTuto()
+    {
+        tutoScript.Init();
+        GameManager.manager.firstTimeSki = false;
+        GameManager.manager.Save();
+    }
+
     private void OnEnable()
     {
         playerLevel = GameManager.manager.skiingLevel/10;   // El resultado es las banderas que no tiene que coger para sacar S
+        SetDifficult();
+    }
+
+    private void SetDifficult()
+    {
+        gameTime = playerLevel;
     }
 
     void Update () {

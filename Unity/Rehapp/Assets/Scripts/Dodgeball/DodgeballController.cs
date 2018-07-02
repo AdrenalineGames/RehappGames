@@ -15,6 +15,7 @@ public class DodgeballController : MonoBehaviour {
     public float sessionTime;
     public static bool startGame = false;
     public GameObject pitchersPrefab;
+    public TutorialScript tutoScript;
 
 
     GameObject pitchers;
@@ -27,6 +28,18 @@ public class DodgeballController : MonoBehaviour {
     int sessionScore;
     int sessionLevel;
 
+    private void Start()
+    {
+        if (GameManager.manager.firstTimeDodgeball)
+            StartTuto();
+    }
+
+    public void StartTuto()
+    {
+        tutoScript.Init();
+        GameManager.manager.firstTimeDodgeball = false;
+        GameManager.manager.Save();
+    }
 
     void OnEnable() {
         timeTx.text = ((int)gameTime).ToString();

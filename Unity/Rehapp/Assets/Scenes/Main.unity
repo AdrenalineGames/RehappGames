@@ -1057,7 +1057,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Back
+  m_Text: "Atr\xE1s"
 --- !u!222 &260001077
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1223,6 +1223,7 @@ GameObject:
   - component: {fileID: 470277084}
   - component: {fileID: 470277083}
   - component: {fileID: 470277082}
+  - component: {fileID: 470277085}
   m_Layer: 5
   m_Name: DodgeballB
   m_TagString: Untagged
@@ -1241,13 +1242,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1872236003}
+  - {fileID: 1601125735}
   m_Father: {fileID: 793401845}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 161, y: -184.77762}
-  m_SizeDelta: {x: 262, y: 57.91105}
+  m_AnchoredPosition: {x: 290, y: -146.06409}
+  m_SizeDelta: {x: 520, y: 42.425632}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &470277082
 MonoBehaviour:
@@ -1334,6 +1336,21 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 470277080}
+--- !u!114 &470277085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 470277080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa3d32e64d6e0c5419b1cd2e2dd39351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalText: {fileID: 1872236002}
+  blockedText: {fileID: 1601125734}
+  restriction: skiingLevel
+  minimunLvl: 5
 --- !u!1 &470812448
 GameObject:
   m_ObjectHideFlags: 0
@@ -2119,8 +2136,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 161, y: -262.6887}
-  m_SizeDelta: {x: 262, y: 57.91105}
+  m_AnchoredPosition: {x: 290, y: -208.48972}
+  m_SizeDelta: {x: 520, y: 42.425632}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &652512114
 MonoBehaviour:
@@ -3973,6 +3990,80 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1206146013}
+--- !u!1 &1253369309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1253369310}
+  - component: {fileID: 1253369312}
+  - component: {fileID: 1253369311}
+  m_Layer: 5
+  m_Name: Text blocked
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1253369310
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1253369309}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1801038561}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1253369311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1253369309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 3
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "Alcanza nivel 5 en Marat\xF3n para desbloquear"
+--- !u!222 &1253369312
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1253369309}
 --- !u!1 &1258484540
 GameObject:
   m_ObjectHideFlags: 0
@@ -4569,6 +4660,80 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2366a4ae0333a4444a2fb474583de7a3, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1601125734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1601125735}
+  - component: {fileID: 1601125737}
+  - component: {fileID: 1601125736}
+  m_Layer: 5
+  m_Name: Text blocked
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1601125735
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1601125734}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 470277081}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 62.425644}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1601125736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1601125734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 3
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Alcanza nivel 5 en Ski para desbloquear
+--- !u!222 &1601125737
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1601125734}
 --- !u!1 &1727694631
 GameObject:
   m_ObjectHideFlags: 0
@@ -4603,8 +4768,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 161, y: -28.955524}
-  m_SizeDelta: {x: 262, y: 57.91105}
+  m_AnchoredPosition: {x: 290, y: -21.212816}
+  m_SizeDelta: {x: 520, y: 42.425632}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1727694633
 MonoBehaviour:
@@ -5077,6 +5242,7 @@ GameObject:
   - component: {fileID: 1801038564}
   - component: {fileID: 1801038563}
   - component: {fileID: 1801038562}
+  - component: {fileID: 1801038565}
   m_Layer: 5
   m_Name: SkiingB
   m_TagString: Untagged
@@ -5095,13 +5261,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1768162232}
+  - {fileID: 1253369310}
   m_Father: {fileID: 793401845}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 161, y: -106.86658}
-  m_SizeDelta: {x: 262, y: 57.91105}
+  m_AnchoredPosition: {x: 290, y: -83.63845}
+  m_SizeDelta: {x: 520, y: 42.425632}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1801038562
 MonoBehaviour:
@@ -5188,6 +5355,21 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1801038560}
+--- !u!114 &1801038565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1801038560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa3d32e64d6e0c5419b1cd2e2dd39351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalText: {fileID: 1768162231}
+  blockedText: {fileID: 1253369309}
+  restriction: marathonLevel
+  minimunLvl: 0
 --- !u!1 &1845936644
 GameObject:
   m_ObjectHideFlags: 0

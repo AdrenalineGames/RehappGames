@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviour {
     public static GameManager manager;
     public string playerName;
     public string playerPw;
-    public int dodgeballLevel;
-    public int marathonLevel;
-    public int skiingLevel;
+    public int dodgeballLevel = 0;
+    public int marathonLevel = 0;
+    public int skiingLevel = 0;
     public bool firstTimeMarathon = true;
     public bool firstTimeSki = true;
     public bool firstTimeDodgeball = true;
