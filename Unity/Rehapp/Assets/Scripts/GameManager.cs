@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour {
     public int dodgeballLevel;
     public int marathonLevel;
     public int skiingLevel;
+    public bool firstTimeMarathon = true;
+    public bool firstTimeSki = true;
+    public bool firstTimeDodgeball = true;
 
     public void LoginPlayerName(Text name)
     {
@@ -67,6 +70,9 @@ public class GameManager : MonoBehaviour {
         data.dodgeballLevel = dodgeballLevel;
         data.skiingLevel = skiingLevel;
         data.marathonLevel = marathonLevel;
+        data.firstTimeDodgeball = firstTimeDodgeball;
+        data.firstTimeMarathon = firstTimeMarathon;
+        data.firstTimeSki = firstTimeSki;
 
         bf.Serialize(file, data);
         file.Close();
@@ -87,6 +93,9 @@ public class GameManager : MonoBehaviour {
             dodgeballLevel = data.dodgeballLevel;
             skiingLevel = data.skiingLevel;
             marathonLevel = data.marathonLevel;
+            firstTimeDodgeball = data.firstTimeDodgeball;
+            firstTimeMarathon = data.firstTimeMarathon;
+            firstTimeSki = data.firstTimeSki;
         }
         else Debug.Log("No saved data");
     }
@@ -102,4 +111,7 @@ class PlayerData
     public int dodgeballLevel;
     public int marathonLevel;
     public int skiingLevel;
+    public bool firstTimeMarathon;
+    public bool firstTimeSki;
+    public bool firstTimeDodgeball;
 }

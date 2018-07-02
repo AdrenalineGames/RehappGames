@@ -12,6 +12,7 @@ public class MarathonController : MonoBehaviour {
     public float maxStepSpeed;
     public float minStepSpeed;
     public Text goalText;
+    public TutorialScript tutoScript;
 
     int goal;
     int maxLevel = 50;
@@ -21,6 +22,19 @@ public class MarathonController : MonoBehaviour {
     char[] ratings = { 'E', 'D', 'C', 'B', 'A', 'S' };
 
     public Pedometer pedometer;
+
+    private void Start()
+    {
+        if(GameManager.manager.firstTimeMarathon)
+            StartTuto();
+    }
+
+    public void StartTuto()
+    {
+        tutoScript.Init();
+        GameManager.manager.firstTimeMarathon = false;
+        GameManager.manager.Save();
+    }
 
     private void ResetLevel()
     {
@@ -57,6 +71,7 @@ public class MarathonController : MonoBehaviour {
             sessionTime += Time.deltaTime;
             if(pedometer.steps == goal)
             {
+                Handheld.Vibrate();
                 onGame = false;
                 pedometer.StartCapturing();
                 rateSession();
