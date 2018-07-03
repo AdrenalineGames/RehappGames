@@ -10,12 +10,14 @@ public class BlockBtn : MonoBehaviour
     public GameObject blockedText;
 
     public string restriction;
+    public string unlockCondition;
     public int minimunLvl;
 
     void Start()
     {
         int restrictionLvl = (int)GameManager.manager.GetType().GetField(restriction).GetValue(GameManager.manager);
-        if(restrictionLvl < minimunLvl)
+        bool unlock = (bool)GameManager.manager.GetType().GetField(unlockCondition).GetValue(GameManager.manager);
+        if (restrictionLvl < minimunLvl && !unlock)
         {
             normalText.SetActive(false);
             blockedText.SetActive(true);

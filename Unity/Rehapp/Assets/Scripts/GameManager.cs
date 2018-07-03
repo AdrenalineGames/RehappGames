@@ -17,6 +17,24 @@ public class GameManager : MonoBehaviour {
     public bool firstTimeMarathon = true;
     public bool firstTimeSki = true;
     public bool firstTimeDodgeball = true;
+    public bool unlockGames = false;
+
+    string unlockPw = "r3A6";
+    string inputPw = "";
+
+    public void SetInputPw(string ipw)
+    {
+        inputPw = ipw;
+    }
+
+    public void UnlockGames()
+    {
+        if (unlockPw == inputPw)
+        {
+            unlockGames = true;
+            Save();
+        }
+    }
 
     public void LoginPlayerName(Text name)
     {
@@ -73,6 +91,7 @@ public class GameManager : MonoBehaviour {
         data.firstTimeDodgeball = firstTimeDodgeball;
         data.firstTimeMarathon = firstTimeMarathon;
         data.firstTimeSki = firstTimeSki;
+        data.unlockGames = unlockGames;
 
         bf.Serialize(file, data);
         file.Close();
@@ -96,10 +115,19 @@ public class GameManager : MonoBehaviour {
             firstTimeDodgeball = data.firstTimeDodgeball;
             firstTimeMarathon = data.firstTimeMarathon;
             firstTimeSki = data.firstTimeSki;
+            unlockGames = data.unlockGames;
         }
         else Debug.Log("No saved data");
     }
 
+    public void ReiniciarNiveles()
+    {
+        marathonLevel = 1;
+        skiingLevel = 1;
+        dodgeballLevel = 1;
+        unlockGames = false;
+        Save();
+    }
 
 }
 
@@ -114,4 +142,5 @@ class PlayerData
     public bool firstTimeMarathon;
     public bool firstTimeSki;
     public bool firstTimeDodgeball;
+    public bool unlockGames;
 }
