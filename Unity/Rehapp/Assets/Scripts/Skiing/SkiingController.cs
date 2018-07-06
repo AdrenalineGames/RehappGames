@@ -43,15 +43,10 @@ public class SkiingController : MonoBehaviour {
         GameManager.manager.Save();
     }
 
-    private void OnEnable()
-    {
-        playerLevel = GameManager.manager.skiingLevel/10;   // El resultado es las banderas que no tiene que coger para sacar S
-        SetDifficult();
-    }
-
     private void SetDifficult()
     {
-        gameTime = playerLevel;
+        gameTime = 10+playerLevel;
+        //Debug.Log(playerLevel + " " + gameTime);
     }
 
     void Update () {
@@ -80,7 +75,7 @@ public class SkiingController : MonoBehaviour {
 
     private void RateSession()
     {
-        sessionScore = (float)Math.Floor(((6 / ((gameTime/distanceBetweenFlags)-playerLevel)) * sessionScore));
+        sessionScore = (float)Math.Floor(((6 / ((gameTime/distanceBetweenFlags)-(playerLevel/10))) * sessionScore));    // playerLevel/10 = number of flags that can let pass and still score S
         if (sessionScore > 5) sessionScore = 5;
         if (sessionScore >= GameManager.manager.skiingLevel)
             updateLevel((int)sessionScore);
@@ -122,12 +117,12 @@ public class SkiingController : MonoBehaviour {
 
     void UpdateScore()
     {
-        scoreTx.text = "Score: " + sessionScore;
+        scoreTx.text = sessionScore.ToString();
     }
 
-void NewFlag()  // Instanciate a new flag in random position
+    void NewFlag()  // Instanciate a new flag in random position
     {
-        Vector3 newFlagPos = new Vector3(UnityEngine.Random.Range(-9.0f, 9.0f), flagsContainer.position.y, flagsContainer.position.z);
+        Vector3 newFlagPos = new Vector3(UnityEngine.Random.Range(-5.0f, 5.0f), flagsContainer.position.y, flagsContainer.position.z);
         Instantiate(flag, newFlagPos, Quaternion.identity, flagsContainer);
     }
 
@@ -154,8 +149,11 @@ void NewFlag()  // Instanciate a new flag in random position
     void ResetLevel()
     {
         //gameTime = 10 + GameManager.manager.skiingLevel;
+        playerLevel = GameManager.manager.skiingLevel;
+        SetDifficult();
         gameTimer = gameTime;
         playerDistance = 0;
+        sessionScore = 0;
         PlayerPosition.PlayerFrontalSpeed = distanceBetweenFlags;
         playerScript.distanceCovered = 0;
     }

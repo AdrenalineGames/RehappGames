@@ -15,6 +15,7 @@ public class PlayerPosition : MonoBehaviour
     public float targetLimit = 0.6f;    //640x480 = 4, 160x120 = 0.6
     public Text debugTx;
     public SkiingController SK;
+    public bool testing;
 
     public static float PlayerFrontalSpeed = 0;
     public float distanceCovered = 0;
@@ -104,7 +105,8 @@ public class PlayerPosition : MonoBehaviour
                 SetPlayerSpeed();
                 //Debug.Log("Distance: " + distanceCovered);
             }
-
+            if (testing)
+                PlayerFrontalSpeed = 1;
         }
     }
 
@@ -133,7 +135,7 @@ public class PlayerPosition : MonoBehaviour
         else
             PlayerFrontalSpeed = linearSpeed.Average() * speedUp;
 
-        Debug.Log("Speed: " + PlayerFrontalSpeed);
+        //Debug.Log("Speed: " + PlayerFrontalSpeed);
         //debugTx.text = PlayerFrontalSpeed.ToString();
     }
 
@@ -209,6 +211,9 @@ public class PlayerPosition : MonoBehaviour
 
     private void PlayerHorizontalPos()
     {
+        float horizontalPos = mean.x;
+        if (horizontalPos > 5) horizontalPos = 5;
+        if (horizontalPos < -5) horizontalPos = -5;
         transform.position = new Vector3(mean.x, transform.position.y, transform.position.z)*posAmplifier;
     }
 
@@ -287,6 +292,7 @@ public class PlayerPosition : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("Yay!");
-        SK.PlayerScore(1);
+        if(other.tag == "Ball")
+            SK.PlayerScore(1);
     }
 }

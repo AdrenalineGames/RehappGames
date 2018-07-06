@@ -27,9 +27,10 @@ public class TutorialScript : MonoBehaviour {
 
     public void NextTuto()
     {
+        Debug.Log(tutoNum);
         tutos[tutoNum].SetActive(false);
         tutoNum++;
-        if (tutoNum == tutos.Length)
+        if (tutoNum == tutos.Length-1)
             EndTutorial();
         else
             tutos[tutoNum].SetActive(true);

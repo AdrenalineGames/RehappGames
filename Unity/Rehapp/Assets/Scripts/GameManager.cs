@@ -18,9 +18,19 @@ public class GameManager : MonoBehaviour {
     public bool firstTimeSki = true;
     public bool firstTimeDodgeball = true;
     public bool unlockGames = false;
+    public bool save = false;
 
     string unlockPw = "r3A6";
     string inputPw = "";
+
+    private void Update()
+    {
+        if (save)
+        {
+            save = false;
+            Save();
+        }
+    }
 
     public void SetInputPw(string ipw)
     {
