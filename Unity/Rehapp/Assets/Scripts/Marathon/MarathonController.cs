@@ -47,13 +47,14 @@ public class MarathonController : MonoBehaviour {
 
     public void NewGame () {
         ResetLevel();
-        //playerLvl = GameManager.manager.marathonLevel;
-        playerLvl = 1;      //Tests
+        playerLvl = GameManager.manager.marathonLevel;
+        //playerLvl = 1;      //Tests
         if (playerLvl == 0)
             playerLvl = 1;
         SetGoal();
         pedometer.sessionGoal = goal;
         pedometer.StartCapturing();
+        Debug.Log("New");
         onGame = true;
 	}
 

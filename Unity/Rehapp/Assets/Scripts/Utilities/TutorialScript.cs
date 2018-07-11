@@ -30,8 +30,11 @@ public class TutorialScript : MonoBehaviour {
         Debug.Log(tutoNum);
         tutos[tutoNum].SetActive(false);
         tutoNum++;
-        if (tutoNum == tutos.Length-1)
+        if (tutoNum >= tutos.Length - 1)
+        {
+            tutoNum--;
             EndTutorial();
+        }
         else
             tutos[tutoNum].SetActive(true);
     }

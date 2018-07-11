@@ -13,7 +13,7 @@ public class BlockBtn : MonoBehaviour
     public string unlockCondition;
     public int minimunLvl;
 
-    void Start()
+    void OnEnable()
     {
         int restrictionLvl = (int)GameManager.manager.GetType().GetField(restriction).GetValue(GameManager.manager);
         bool unlock = (bool)GameManager.manager.GetType().GetField(unlockCondition).GetValue(GameManager.manager);

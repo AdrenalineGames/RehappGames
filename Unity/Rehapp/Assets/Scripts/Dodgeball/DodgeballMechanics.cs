@@ -12,7 +12,6 @@ public class DodgeballMechanics : MonoBehaviour {
 
     byte[] backgroundB;
     byte[] camImg;
-    public float moveSpeed;
     public bool playerDetected = false;
     public int globalCamWidth;
     public int globalCamHeigth;

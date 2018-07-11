@@ -16,6 +16,7 @@ public class PlayerPosition : MonoBehaviour
     public Text debugTx;
     public SkiingController SK;
     public bool testing;
+    public float testingSpeed;
 
     public static float PlayerFrontalSpeed = 0;
     public float distanceCovered = 0;
@@ -106,7 +107,7 @@ public class PlayerPosition : MonoBehaviour
                 //Debug.Log("Distance: " + distanceCovered);
             }
             if (testing)
-                PlayerFrontalSpeed = 1;
+                PlayerFrontalSpeed = testingSpeed;
         }
     }
 
@@ -211,10 +212,12 @@ public class PlayerPosition : MonoBehaviour
 
     private void PlayerHorizontalPos()
     {
-        float horizontalPos = mean.x;
+        float horizontalPos = mean.x * posAmplifier;
+        if (testing)
+            horizontalPos = transform.position.x + Input.GetAxis("Horizontal")*0.1f;
         if (horizontalPos > 5) horizontalPos = 5;
         if (horizontalPos < -5) horizontalPos = -5;
-        transform.position = new Vector3(mean.x, transform.position.y, transform.position.z)*posAmplifier;
+        transform.position = new Vector3(horizontalPos, transform.position.y, transform.position.z);
     }
 
     private void CutTarget()    // Cuts the target avoiding overflow

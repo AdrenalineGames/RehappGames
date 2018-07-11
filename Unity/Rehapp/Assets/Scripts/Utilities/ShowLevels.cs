@@ -9,7 +9,7 @@ public class ShowLevels : MonoBehaviour {
     public string[] gameName;
     public string[] showName;
 
-    void OnEnable ()
+    private void OnEnable()
     {
         TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
         Text text = gameObject.GetComponent<Text>();

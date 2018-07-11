@@ -10,7 +10,7 @@ public class ShowCam : MonoBehaviour {
     {
         var renderer = GetComponent<Renderer>();
         renderer.material.SetFloat("_Mode", 3);
-        renderer.material.color = new Color(1.0f, 1.0f, 1.0f, 0.4f);
+        renderer.material.color = new Color(1.0f, 1.0f, 1.0f, 0.6f);
         renderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
         renderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
         renderer.material.SetInt("_ZWrite", 0);

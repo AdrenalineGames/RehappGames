@@ -88,6 +88,7 @@ public class Pedometer : MonoBehaviour {
         }
         else
         {
+            state.text = ("Presiona nuevo juego para comenzar");
             CancelInvoke();
             xKernellData = new float[0];
             yKernellData = new float[0];
@@ -122,7 +123,7 @@ public class Pedometer : MonoBehaviour {
 
 
         GetComponent<AccCapturer>().SaveTemplate(string.Join(" ", kernell.Select(x => x.ToString()).ToArray()));
-        state.text = ("Kernell created from: " + kernellCenter.ToString());
+        //state.text = ("Kernell created from: " + kernellCenter.ToString());
     }
 
     void MarchCaptureAcc()
@@ -134,7 +135,7 @@ public class Pedometer : MonoBehaviour {
             zAcc = Input.acceleration.z;
             if (kernellTime < (oneStep * initStepCount))    //Espera 6 segundos a que capture datos de los acelerometros en cada array
             {
-                state.text = ("Adquiring data for Kernell");
+                //state.text = ("Adquiring data for Kernell");
                 xKernellData = xKernellData.Concat(new float[] { xAcc }).ToArray();
                 yKernellData = yKernellData.Concat(new float[] { yAcc }).ToArray();
                 zKernellData = zKernellData.Concat(new float[] { zAcc }).ToArray();
@@ -155,34 +156,34 @@ public class Pedometer : MonoBehaviour {
                     Average = zKernellData.Average();
                     sumOfSquaresOfDifferences = zKernellData.Select(val => (val - Average) * (val - Average)).Sum();
                     double zSd = Math.Sqrt(sumOfSquaresOfDifferences / zKernellData.Length);
-                    state.text = ("Std" + xSd.ToString() + ySd.ToString() + zSd.ToString());
+                    //state.text = ("Std" + xSd.ToString() + ySd.ToString() + zSd.ToString());
                     if (ySd > xSd && ySd > zSd)
                     {
                         CaptureKernell(yKernellData);
-                        state.text = ("Y selected");
+                        //state.text = ("Y selected");
                         accSelected = new Vector3(0, 1, 0);
                     }
                     else if (zSd > xSd && zSd > ySd)
                     {
                         CaptureKernell(zKernellData);
-                        state.text = ("Z selected");
+                        //state.text = ("Z selected");
                         accSelected = new Vector3(0, 0, 1);
                     }
                     else
                     {
                         CaptureKernell(xKernellData);
-                        state.text = ("X selected");
+                        //state.text = ("X selected");
                         accSelected = new Vector3(1, 0, 0);
                     }
-                    state.text = ("Kernell: " + string.Join(",", kernell.Select(p => p.ToString()).ToArray()));
+                    //state.text = ("Kernell: " + string.Join(",", kernell.Select(p => p.ToString()).ToArray()));
                 }
                 else    // After having the kernell, it is used to counter steps
                 {
                     //Detectar pasos con el kernell
-                    state.text = ("Using Kernell");
+                    //state.text = ("Using Kernell");
                     Array.Copy(realTimeData, 0, realTimeData, 1, realTimeData.Length - 1);
                     realTimeData[0] = xAcc * accSelected.x + yAcc * accSelected.y + zAcc * accSelected.z;
-                    state.text = ("Real Time Data: " + string.Join(",", realTimeData.Select(p => p.ToString()).ToArray()));
+                    //state.text = ("Real Time Data: " + string.Join(",", realTimeData.Select(p => p.ToString()).ToArray()));
                     float result;
                     unsafe
                     {
@@ -204,7 +205,7 @@ public class Pedometer : MonoBehaviour {
                     if (stepRestriction > 40)   // Reinicia la captura del kernell después de 3 segundos
                     {
                         ResetKernell();
-                        Debug.Log("Kernell lost, getting new");
+                        //Debug.Log("Kernell lost, getting new");
                     }
                 }
             }

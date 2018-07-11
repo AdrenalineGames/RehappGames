@@ -135,6 +135,9 @@ public class GameManager : MonoBehaviour {
         marathonLevel = 1;
         skiingLevel = 1;
         dodgeballLevel = 1;
+        firstTimeMarathon = true;
+        firstTimeSki = true;
+        firstTimeDodgeball = true;
         unlockGames = false;
         Save();
     }
