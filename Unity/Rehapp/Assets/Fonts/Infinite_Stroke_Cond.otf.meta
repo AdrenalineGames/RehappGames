@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: edc4e317911c65840929ed3819bffd5d
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Infinite Stroke
+  fontNames:
+  - Infinite Stroke
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: ad961255cc019354a90905b00e376669, type: 3}
+  - {fileID: 12800000, guid: 59e390e60c3802e408a7e84a84332deb, type: 3}
+  - {fileID: 12800000, guid: cf9cab6e256dd2244924b8c63aa5f263, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
