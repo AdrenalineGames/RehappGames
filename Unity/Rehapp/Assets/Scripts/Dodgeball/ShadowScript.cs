@@ -10,7 +10,7 @@ public class ShadowScript : MonoBehaviour {
         Color parentColor = GetComponentInParent<Renderer>().material.color;
         var renderer = GetComponent<Renderer>();
         renderer.material.SetFloat("_Mode", 3);
-        renderer.material.color = new Color(parentColor.r, parentColor.g, parentColor.b, parentColor.a/2);
+        renderer.material.SetColor("_Color", new Color(parentColor.r, parentColor.g, parentColor.b, parentColor.a/2));
     }
 
     void Update () {

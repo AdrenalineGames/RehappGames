@@ -8,6 +8,7 @@ TagManager:
   - BallBomb
   - Boundary
   - Pitcher
+  - BackB
   layers:
   - Default
   - TransparentFX

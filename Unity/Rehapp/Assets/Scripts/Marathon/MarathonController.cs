@@ -54,7 +54,7 @@ public class MarathonController : MonoBehaviour {
         SetGoal();
         pedometer.sessionGoal = goal;
         pedometer.StartCapturing();
-        Debug.Log("New");
+        //Debug.Log("New");
         onGame = true;
 	}
 
