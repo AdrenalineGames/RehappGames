@@ -6691,6 +6691,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dbLink: http://localhost/MahavirTest/PatientsData.php
+  connect: 0
+  data: []
+--- !u!114 &1417484314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1417484312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adfa55acb1200e9429c09161594275f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  url: http://localhost/MahavirTest/InsertPatient.php
+  mahavirId: mnb456
+  username: Tom
+  password: 369
+  add: 0
 --- !u!1001 &1486346979
 Prefab:
   m_ObjectHideFlags: 0
