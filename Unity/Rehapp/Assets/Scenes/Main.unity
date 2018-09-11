@@ -6709,6 +6709,21 @@ MonoBehaviour:
   username: Tom
   password: 369
   add: 0
+--- !u!114 &1417484315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1417484312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87541489dd23aa4b94f36f176d026be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loginUrl: http://localhost/MahavirTest/Login.php
+  username: Julian
+  password: 123
+  login: 0
 --- !u!1001 &1486346979
 Prefab:
   m_ObjectHideFlags: 0
