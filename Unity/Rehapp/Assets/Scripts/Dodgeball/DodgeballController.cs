@@ -30,14 +30,14 @@ public class DodgeballController : MonoBehaviour {
 
     private void Start()
     {
-        if (GameManager.manager.firstTimeDodgeball)
+        if (GameManager.manager.dodgeballLevel == 0)
             StartTuto();
     }
 
     public void StartTuto()
     {
         tutoScript.Init();
-        GameManager.manager.firstTimeDodgeball = false;
+        GameManager.manager.dodgeballLevel = 1;
         GameManager.manager.Save();
     }
 

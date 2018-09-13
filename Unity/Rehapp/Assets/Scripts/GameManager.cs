@@ -9,19 +9,21 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class GameManager : MonoBehaviour {
 
     public static GameManager manager;
-    public string playerName;
+    public string playerId;
     public string playerPw;
-    public int dodgeballLevel = 0;
     public int marathonLevel = 0;
+    public int marathonSpeed = 0;
+    public int marathonSteps = 0;
     public int skiingLevel = 0;
-    public bool firstTimeMarathon = true;
-    public bool firstTimeSki = true;
-    public bool firstTimeDodgeball = true;
-    public bool unlockGames = false;
+    public int skiingSpeed = 0;
+    public int dodgeballLevel = 0;
     public bool save = false;
+
+    ulong saveDate = 0;
 
     string unlockPw = "r3A6";
     string inputPw = "";
+
 
     private void Update()
     {
@@ -41,14 +43,15 @@ public class GameManager : MonoBehaviour {
     {
         if (unlockPw == inputPw)
         {
-            unlockGames = true;
+            marathonLevel = 6;
+            skiingLevel = 6;
             Save();
         }
     }
 
     public void LoginPlayerName(Text name)
     {
-        playerName = name.text;
+        playerId = name.text;
     }
 
     public void LoginPlayerPw(Text pw)
@@ -89,19 +92,21 @@ public class GameManager : MonoBehaviour {
 
     public void Save()
     {
+        saveDate = DateAsLong();
+
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/saves.dat");
 
         PlayerData data = new PlayerData();
-        data.playerName = "";
+        data.saveDate = saveDate;
+        data.playerId = "";
         data.playerPw = "";
-        data.dodgeballLevel = dodgeballLevel;
-        data.skiingLevel = skiingLevel;
         data.marathonLevel = marathonLevel;
-        data.firstTimeDodgeball = firstTimeDodgeball;
-        data.firstTimeMarathon = firstTimeMarathon;
-        data.firstTimeSki = firstTimeSki;
-        data.unlockGames = unlockGames;
+        data.marathonSpeed = marathonSpeed;
+        data.marathonSteps = marathonSteps;
+        data.skiingLevel = skiingLevel;
+        data.skiingSpeed = skiingSpeed;
+        data.dodgeballLevel = dodgeballLevel;
 
         bf.Serialize(file, data);
         file.Close();
@@ -117,43 +122,47 @@ public class GameManager : MonoBehaviour {
             PlayerData data = (PlayerData)bf.Deserialize(file);
             file.Close();
 
-            playerName = data.playerName;
+            saveDate = data.saveDate;
+            playerId = data.playerId;
             playerPw = data.playerPw;
-            dodgeballLevel = data.dodgeballLevel;
-            skiingLevel = data.skiingLevel;
             marathonLevel = data.marathonLevel;
-            firstTimeDodgeball = data.firstTimeDodgeball;
-            firstTimeMarathon = data.firstTimeMarathon;
-            firstTimeSki = data.firstTimeSki;
-            unlockGames = data.unlockGames;
+            marathonSpeed = data.marathonSpeed;
+            marathonSteps = data.marathonSteps;
+            skiingLevel = data.skiingLevel;
+            skiingSpeed = data.skiingSpeed;
+            dodgeballLevel = data.dodgeballLevel;
         }
         else Debug.Log("No saved data");
     }
 
     public void ReiniciarNiveles()
     {
-        marathonLevel = 1;
-        skiingLevel = 1;
-        dodgeballLevel = 1;
-        firstTimeMarathon = true;
-        firstTimeSki = true;
-        firstTimeDodgeball = true;
-        unlockGames = false;
+        marathonLevel = 0;
+        marathonSpeed = 0;
+        marathonSteps = 0;
+        skiingLevel = 0;
+        skiingSpeed = 0;
+        dodgeballLevel = 0;
         Save();
     }
 
+    ulong DateAsLong()
+    {
+        return((ulong)DateTime.Now.Year * 10000000 + (ulong)DateTime.Now.DayOfYear * 10000
+            + (ulong)DateTime.Now.Hour * 100 + (ulong)DateTime.Now.Minute);
+    }
 }
 
 [Serializable]
 class PlayerData
 {
-    public string playerName;
+    public ulong saveDate;
+    public string playerId;
     public string playerPw;
-    public int dodgeballLevel;
     public int marathonLevel;
+    public int marathonSpeed;
+    public int marathonSteps;
     public int skiingLevel;
-    public bool firstTimeMarathon;
-    public bool firstTimeSki;
-    public bool firstTimeDodgeball;
-    public bool unlockGames;
+    public int skiingSpeed;
+    public int dodgeballLevel;
 }

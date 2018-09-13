@@ -25,14 +25,14 @@ public class MarathonController : MonoBehaviour {
 
     private void Start()
     {
-        if(GameManager.manager.firstTimeMarathon)
+        if(GameManager.manager.marathonLevel == 0)
             StartTuto();
     }
 
     public void StartTuto()
     {
         tutoScript.Init();
-        GameManager.manager.firstTimeMarathon = false;
+        GameManager.manager.marathonLevel = 1;
         GameManager.manager.Save();
     }
 

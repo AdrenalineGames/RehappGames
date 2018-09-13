@@ -32,14 +32,14 @@ public class SkiingController : MonoBehaviour {
 
     private void Start()
     {
-        if (GameManager.manager.firstTimeSki)
+        if (GameManager.manager.skiingLevel == 0)
             StartTuto();
     }
 
     public void StartTuto()
     {
         tutoScript.Init();
-        GameManager.manager.firstTimeSki = false;
+        GameManager.manager.skiingLevel = 1;
         GameManager.manager.Save();
     }
 

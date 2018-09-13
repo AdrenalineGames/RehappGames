@@ -11,7 +11,7 @@ public class CheckPw : MonoBehaviour
 
     public void CheckUnlockPw()
     {
-        if (GameManager.manager.unlockGames)
+        if (GameManager.manager.skiingLevel > 5)
         {
             correctPw.SetActive(true);
             EnableUnlockButton();
@@ -22,7 +22,7 @@ public class CheckPw : MonoBehaviour
 
     public void EnableUnlockButton()
     {
-        if (GameManager.manager.unlockGames)
+        if (GameManager.manager.skiingLevel > 5)
             unlockButton.interactable = false;
         else
             unlockButton.interactable = true;

@@ -16,8 +16,7 @@ public class BlockBtn : MonoBehaviour
     void OnEnable()
     {
         int restrictionLvl = (int)GameManager.manager.GetType().GetField(restriction).GetValue(GameManager.manager);
-        bool unlock = (bool)GameManager.manager.GetType().GetField(unlockCondition).GetValue(GameManager.manager);
-        if (restrictionLvl < minimunLvl && !unlock)
+        if (restrictionLvl < minimunLvl)
         {
             normalText.SetActive(false);
             blockedText.SetActive(true);
