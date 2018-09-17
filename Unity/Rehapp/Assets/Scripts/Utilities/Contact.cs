@@ -1,13 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Contact : MonoBehaviour {
 
 
-    string email = "sympatheticgames@gmail.com";
+    string techEmail = "sympatheticgames@gmail.com";
+    string mahavirEmail = "Jesusplata@mahavir-kmina.org";
     string subject = "Rehapp contact";
     string msgTxt;
+    int contactOption;
+
+    public InputField message;
+    public Button sendButton;
+
+    public void EnableInputField(int d)
+    {
+        contactOption = d;
+        if (d > 0)
+        {
+            message.interactable = true;
+            sendButton.interactable = true;
+        }
+        else
+        {
+            message.interactable = false;
+            sendButton.interactable = false;
+        }
+    }
 
     public void SetMsg(string msg)
     {
@@ -16,6 +37,12 @@ public class Contact : MonoBehaviour {
 
     public void SendMail()
     {
-        Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + msgTxt);
+        if (contactOption == 1)
+        {
+            Application.OpenURL("mailto:" + mahavirEmail + "?subject=" + subject + "&body=" + msgTxt);
+        }else if(contactOption == 2)
+        {
+            Application.OpenURL("mailto:" + techEmail + "?subject=" + subject + "&body=" + msgTxt);
+        }
     }
 }
