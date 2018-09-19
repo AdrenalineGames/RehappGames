@@ -10,10 +10,8 @@ public class Pedometer : MonoBehaviour {
     bool cap = false;       //Capturing accelerometer?
     public bool capKernell = false;    //Capturing for the first time?
     float kernellTime = 0;
-    public Text counterTx;
-    public Text state;
     public float oneStep = 3.0f;
-    public float movilToPocket = 2.0f;
+    public float initDelay = 2.0f;
     public float initStepCount = 3;
     public int kernellDistribution = 2;
     public float presision = 0.79f;
@@ -23,9 +21,7 @@ public class Pedometer : MonoBehaviour {
     float yAcc;
     float zAcc;
     Vector3 accSelected;
-    public bool onPocket = false;
-    public GameObject lockPanel;
-    public int sessionGoal;
+    public bool greenLight = false;
 
     //List<float> xKernellData = new List<float>();
     float[] xKernellData = { };
@@ -34,42 +30,10 @@ public class Pedometer : MonoBehaviour {
     float[] kernell = new float[6];
     float[] realTimeData = {0,0,0,0,0,0};
 
-
-    // Use this for initialization
-    void Start()
-    {
-        //counterTx.text = OcvMechanics.DllTest().ToString();
-        PAProximity.messageReceiver = gameObject;
-    //    float[] testTm = { 0.1f, 0.5f, 2.8f };
-    //    Debug.Log(string.Join(" ", testTm.Select(x => x.ToString()).ToArray()));
-    //    testTm = new float[0];
-    //    Debug.Log(string.Join(" ", testTm.Select(x => x.ToString()).ToArray()));
-    //    testTm = testTm.Concat(new float[] { 5 }).ToArray();
-    //    Debug.Log(string.Join(" ", testTm.Select(x => x.ToString()).ToArray()));
-    }
-
     private void Update()
     {
-        OnProximityChange(PAProximity.proximity);
-        if (kernellTime < (oneStep * initStepCount) && onPocket)
-        {
+        if (kernellTime < (oneStep * initStepCount) && cap && greenLight)
             kernellTime += Time.deltaTime;
-            //Apagar pantalla
-            lockPanel.SetActive(true);
-        }
-        else if (!onPocket)
-        {
-            //Encender pantalla
-            lockPanel.SetActive(false);
-        }
-    }
-
-    void OnProximityChange(PAProximity.Proximity proximity)
-    {
-#if UNITY_EDITOR
-#else
-        onPocket = ((proximity == PAProximity.Proximity.NEAR) ? true : false);
-#endif
     }
 
     public void StartCapturing()
@@ -80,15 +44,11 @@ public class Pedometer : MonoBehaviour {
             cap = true;
             capKernell = true;
             stepRestriction = 0;
-            //state.text = ("New walk"+kernellTime.ToString());
-            state.text = ("Guarda el celular en el bolsillo");
-            InvokeRepeating("MarchCaptureAcc", movilToPocket, 0.1f);
-            movilToPocket = 2;
-            //GetComponent<AccCapturer>().StartCapturing(movilToPocket);
+            InvokeRepeating("MarchCaptureAcc", initDelay, 0.1f);
+            initDelay = 2;
         }
         else
         {
-            state.text = ("Presiona nuevo juego para comenzar");
             CancelInvoke();
             xKernellData = new float[0];
             yKernellData = new float[0];
@@ -128,7 +88,7 @@ public class Pedometer : MonoBehaviour {
 
     void MarchCaptureAcc()
     {
-        if (onPocket)
+        if (greenLight)
         {
             xAcc = Input.acceleration.x;
             yAcc = Input.acceleration.y;
@@ -200,7 +160,6 @@ public class Pedometer : MonoBehaviour {
                     {
                         steps++;
                         stepRestriction = 0;
-                        counterTx.text = steps.ToString() + " de " + sessionGoal;
                     }
                     if (stepRestriction > 40)   // Reinicia la captura del kernell después de 3 segundos
                     {
@@ -215,7 +174,7 @@ public class Pedometer : MonoBehaviour {
     private void ResetKernell()
     {
         StartCapturing();
-        movilToPocket = 0;
+        initDelay = 0;
         StartCapturing();
     }
 }

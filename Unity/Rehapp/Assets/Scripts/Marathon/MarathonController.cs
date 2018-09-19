@@ -11,11 +11,16 @@ public class MarathonController : MonoBehaviour {
     public int minGoal;
     public float maxStepSpeed;
     public float minStepSpeed;
-    public Text goalText;
+    public bool onPocket = false;
+
+    public Text state;
+
+    public GameObject lockPanel;
     public TutorialScript tutoScript;
 
     int goal;
     int maxLevel = 50;
+    int minLevel = 1;
     bool onGame = false;
     float sessionTime = 0;
     int sessionScore = 0;
@@ -25,7 +30,8 @@ public class MarathonController : MonoBehaviour {
 
     private void Start()
     {
-        if(GameManager.manager.marathonLevel == 0)
+        PAProximity.messageReceiver = gameObject;
+        if (GameManager.manager.marathonLevel == 0)
             StartTuto();
     }
 
@@ -52,45 +58,71 @@ public class MarathonController : MonoBehaviour {
         if (playerLvl == 0)
             playerLvl = 1;
         SetGoal();
-        pedometer.sessionGoal = goal;
         pedometer.StartCapturing();
+        state.text = ("Guarda el celular en el bolsillo");
         //Debug.Log("New");
         onGame = true;
 	}
 
+    public void StopGame()
+    {
+        onGame = false;
+        pedometer.StartCapturing();
+        rateSession();
+        state.text = "Sesión terminada, tu puntuación es: " + ratings[sessionScore];
+        ResetLevel();
+    }
+
     private void SetGoal()
     {
-        //goal = (int)(((maxGoal-minGoal)/maxLevel)*playerLvl);
-        goal = 5 + playerLvl;      //Tests
-        goalText.text = "El objetivo de esta sesión son " + goal + " pasos!";
+        goal = (int)((playerLvl-minLevel)*((maxGoal-minGoal)/(maxLevel-minLevel))+minGoal);
+        //goal = 5 + playerLvl;      //Tests
+        state.text = "Tu nuevo objetivo son " + goal + " pasos!";
     }
 
     // Update is called once per frame
     void Update () {
-        if (onGame && pedometer.onPocket && !pedometer.capKernell)
+        if (onGame && pedometer.greenLight && !pedometer.capKernell)
         {
             sessionTime += Time.deltaTime;
             if(pedometer.steps == goal)
             {
                 Handheld.Vibrate();
-                onGame = false;
-                pedometer.StartCapturing();
                 rateSession();
-                ResetLevel();
+                state.text = "Nivel completado, tu puntuación es: " + ratings[sessionScore];
+                SetGoal();
             }
         }
-	}
+        OnProximityChange(PAProximity.proximity);
+        pedometer.greenLight = onPocket;
+        TurnScreenOnOff(onPocket);
+    }
 
-    private void rateSession()
+    private void TurnScreenOnOff(bool condition)
     {
-        float sessionStepSpeed = sessionTime / goal;
+        if (condition)
+            lockPanel.SetActive(true);        //Apagar pantalla
+        else
+            lockPanel.SetActive(false);       //Encender pantalla
+    }
+
+    void OnProximityChange(PAProximity.Proximity proximity)
+    {
+#if UNITY_EDITOR
+#else
+        onPocket = ((proximity == PAProximity.Proximity.NEAR) ? true : false);
+#endif
+    }
+
+    private void rateSession() 
+    {
+        float sessionStepSpeed = sessionTime / pedometer.steps;
         sessionScore = (int)((5 / (maxStepSpeed - minStepSpeed)) * sessionStepSpeed + 7.5f);     //Min session speed for S is 0.75 and min for E is 1.95 seconds for step
         if (sessionScore > 5)
             sessionScore = 5;
         if (sessionScore < 0)
             sessionScore = 0;
-        Debug.Log(sessionScore);
-        goalText.text = "Sesión terminada, tu puntuación es: " + ratings[sessionScore];
+        //Debug.Log(sessionScore);
         updateLevel(sessionScore);
     }
 
