@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
     public string playerId;
     public string playerPw;
     public int marathonLevel = 0;
-    public int marathonSpeed = 0;
+    public float marathonSpeed = 0;
     public int marathonSteps = 0;
     public int skiingLevel = 0;
     public int skiingSpeed = 0;
@@ -71,8 +71,10 @@ public class GameManager : MonoBehaviour {
         Save();
     }
 
-    public void SetMarathonLvl(int lvl)
+    public void SetMarathonLvl(int lvl, float lastSpeed, int lastGoal)
     {
+        marathonSpeed = lastSpeed;
+        marathonSteps = lastGoal;
         marathonLevel = lvl;
         Save();
     }
@@ -160,7 +162,7 @@ class PlayerData
     public string playerId;
     public string playerPw;
     public int marathonLevel;
-    public int marathonSpeed;
+    public float marathonSpeed;
     public int marathonSteps;
     public int skiingLevel;
     public int skiingSpeed;

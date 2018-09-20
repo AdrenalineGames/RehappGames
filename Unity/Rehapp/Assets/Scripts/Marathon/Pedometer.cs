@@ -10,9 +10,9 @@ public class Pedometer : MonoBehaviour {
     bool cap = false;       //Capturing accelerometer?
     public bool capKernell = false;    //Capturing for the first time?
     float kernellTime = 0;
-    public float oneStep = 3.0f;
+    public float oneStep = 2.0f;    // Time in seconds of one step
     public float initDelay = 2.0f;
-    public float initStepCount = 3;
+    public float initStepCount = 3; // Number of steps for template
     public int kernellDistribution = 2;
     public float presision = 0.79f;
     int stepRestriction = 5; //Para que no cuente pasos en menos de medio segundo
@@ -81,8 +81,7 @@ public class Pedometer : MonoBehaviour {
         for (int i = 0; i < kernell.Length; i++)
             kernell[i] = kernell[i] + aver;
 
-
-        GetComponent<AccCapturer>().SaveTemplate(string.Join(" ", kernell.Select(x => x.ToString()).ToArray()));
+        //GetComponent<AccCapturer>().SaveTemplate(string.Join(" ", kernell.Select(x => x.ToString()).ToArray())); // Save template
         //state.text = ("Kernell created from: " + kernellCenter.ToString());
     }
 
@@ -93,7 +92,7 @@ public class Pedometer : MonoBehaviour {
             xAcc = Input.acceleration.x;
             yAcc = Input.acceleration.y;
             zAcc = Input.acceleration.z;
-            if (kernellTime < (oneStep * initStepCount))    //Espera 6 segundos a que capture datos de los acelerometros en cada array
+            if (kernellTime < (oneStep * initStepCount))    // Waits the amount of time corresponding to the initial steps
             {
                 //state.text = ("Adquiring data for Kernell");
                 xKernellData = xKernellData.Concat(new float[] { xAcc }).ToArray();

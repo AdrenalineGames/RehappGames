@@ -14,15 +14,18 @@ public class MarathonController : MonoBehaviour {
     public bool onPocket = false;
 
     public Text state;
+    public Text stepsTx;
 
     public GameObject lockPanel;
     public TutorialScript tutoScript;
 
     int goal;
+    int steps = 0;
     int maxLevel = 50;
     int minLevel = 1;
     bool onGame = false;
     float sessionTime = 0;
+    float sessionStepSpeed = 0;
     int sessionScore = 0;
     char[] ratings = { 'E', 'D', 'C', 'B', 'A', 'S' };
 
@@ -68,16 +71,25 @@ public class MarathonController : MonoBehaviour {
     {
         onGame = false;
         pedometer.StartCapturing();
-        rateSession();
-        state.text = "Sesión terminada, tu puntuación es: " + ratings[sessionScore];
+
+        if (steps > goal * 0.7)
+        {
+            rateSession();
+            state.text = "Sesión terminada, tu puntuación es: " + ratings[sessionScore];
+        }
+        else
+            state.text = "Sesión incompleta ";
+
         ResetLevel();
     }
 
     private void SetGoal()
     {
-        goal = (int)((playerLvl-minLevel)*((maxGoal-minGoal)/(maxLevel-minLevel))+minGoal);
+        playerLvl = GameManager.manager.marathonLevel;
+        goal = ((playerLvl-minLevel)*((maxGoal-minGoal)/(maxLevel-minLevel))+minGoal);
         //goal = 5 + playerLvl;      //Tests
-        state.text = "Tu nuevo objetivo son " + goal + " pasos!";
+        Debug.Log(goal);
+        stepsTx.text = "Tu nuevo objetivo son " + goal + " pasos!";
     }
 
     // Update is called once per frame
@@ -89,13 +101,26 @@ public class MarathonController : MonoBehaviour {
             {
                 Handheld.Vibrate();
                 rateSession();
+                Debug.Log("Goal");
                 state.text = "Nivel completado, tu puntuación es: " + ratings[sessionScore];
                 SetGoal();
             }
+
+            ShowSteps();
         }
+
         OnProximityChange(PAProximity.proximity);
         pedometer.greenLight = onPocket;
         TurnScreenOnOff(onPocket);
+    }
+
+    private void ShowSteps()
+    {
+        if (steps != pedometer.steps)
+        {
+            steps = pedometer.steps;
+            stepsTx.text = steps + " de " + goal;
+        }
     }
 
     private void TurnScreenOnOff(bool condition)
@@ -116,13 +141,14 @@ public class MarathonController : MonoBehaviour {
 
     private void rateSession() 
     {
-        float sessionStepSpeed = sessionTime / pedometer.steps;
+        sessionStepSpeed = sessionTime / pedometer.steps;
         sessionScore = (int)((5 / (maxStepSpeed - minStepSpeed)) * sessionStepSpeed + 7.5f);     //Min session speed for S is 0.75 and min for E is 1.95 seconds for step
+
         if (sessionScore > 5)
             sessionScore = 5;
         if (sessionScore < 0)
             sessionScore = 0;
-        //Debug.Log(sessionScore);
+
         updateLevel(sessionScore);
     }
 
@@ -139,15 +165,13 @@ public class MarathonController : MonoBehaviour {
                 modifyLevel = 0;
                 break;
             case 3:
+            case 4:
                 modifyLevel = 1;
                 break;
-            case 4:
+            case 5:
                 modifyLevel = 2;
                 break;
-            case 5:
-                modifyLevel = 3;
-                break;
         }
-        GameManager.manager.SetMarathonLvl(GameManager.manager.marathonLevel += modifyLevel);
+        GameManager.manager.SetMarathonLvl(GameManager.manager.marathonLevel += modifyLevel, sessionStepSpeed, goal);
     }
 }
