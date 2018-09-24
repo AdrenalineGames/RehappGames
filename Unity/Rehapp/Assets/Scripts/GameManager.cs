@@ -9,13 +9,16 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class GameManager : MonoBehaviour {
 
     public static GameManager manager;
+
+    public string dbLink = "http://localhost/MahavirKmina/";
+
     public string playerId;
     public string playerPw;
     public int marathonLevel = 0;
     public float marathonSpeed = 0;
     public int marathonSteps = 0;
     public int skiingLevel = 0;
-    public int skiingSpeed = 0;
+    public float skiingSpeed = 0;
     public int dodgeballLevel = 0;
     public bool save = false;
 
@@ -24,6 +27,11 @@ public class GameManager : MonoBehaviour {
     string unlockPw = "r3A6";
     string inputPw = "";
 
+    //private void Start()
+    //{
+    //    ulong date = DateAsLong();
+    //    Debug.Log(date);
+    //}
 
     private void Update()
     {
@@ -65,8 +73,9 @@ public class GameManager : MonoBehaviour {
         Save();
     }
 
-    public void SetSkiingLvl(int lvl)
+    public void SetSkiingLvl(int lvl, float lastSpeed)
     {
+        skiingSpeed = lastSpeed;
         skiingLevel = lvl;
         Save();
     }
@@ -165,6 +174,6 @@ class PlayerData
     public float marathonSpeed;
     public int marathonSteps;
     public int skiingLevel;
-    public int skiingSpeed;
+    public float skiingSpeed;
     public int dodgeballLevel;
 }

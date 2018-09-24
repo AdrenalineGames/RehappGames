@@ -5,27 +5,33 @@ using UnityEngine;
 public class NewPatient : MonoBehaviour {
 
     public string url;
-    public string mahavirId;
     public string username;
     public string password;
 
     public bool add = false;
 
-	public void AddNewPatient(string mID, string un, string pass, string u)
+    public void SetData()
+    {
+        url = GameManager.manager.dbLink + "InsertPatient.php";
+        username = GameManager.manager.playerId;
+        password = GameManager.manager.playerPw;
+        AddNewPatient();
+    }
+
+	public void AddNewPatient()
     {
         WWWForm form = new WWWForm();
-        form.AddField("mahavirIDPost", mID);
-        form.AddField("usernamePost", un);
-        form.AddField("passPost", pass);
+        form.AddField("usernamePost", username);
+        form.AddField("passPost", password);
 
-        WWW www = new WWW(u, form);
+        WWW www = new WWW(url, form);
     }
 
     private void Update()
     {
         if (add)
         {
-            AddNewPatient(mahavirId, username, password, url);
+            AddNewPatient();
             add = false;
         }
     }

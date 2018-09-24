@@ -10,6 +10,7 @@ public class DataLoader : MonoBehaviour {
 
 	// Use this for initialization
 	IEnumerator Connect () {
+        dbLink = GameManager.manager.dbLink + "PatientsData.php";
         WWW pacientData = new WWW(dbLink);
         yield return pacientData;
         string pacientDataString = pacientData.text;
@@ -17,6 +18,11 @@ public class DataLoader : MonoBehaviour {
 
         data = pacientDataString.Split('|');
 	}
+
+    public void LoadFromDb()
+    {
+        StartCoroutine(Connect());
+    }
 
     void Update()
     {

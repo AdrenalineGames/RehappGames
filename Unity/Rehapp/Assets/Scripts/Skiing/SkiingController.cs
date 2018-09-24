@@ -26,7 +26,7 @@ public class SkiingController : MonoBehaviour {
 
     float gameTimer;
     float sessionScore;
-    int playerDistance;
+    float playerDistance;
     char[] ratings = { 'E', 'D', 'C', 'B', 'A', 'S' };
 
 
@@ -75,16 +75,17 @@ public class SkiingController : MonoBehaviour {
 
     private void RateSession()
     {
-        sessionScore = (float)Math.Floor(((6 / ((gameTime/distanceBetweenFlags)-(playerLevel/10))) * sessionScore));    // playerLevel/10 = number of flags that can let pass and still score S
-        if (sessionScore > 5) sessionScore = 5;
-        if (sessionScore >= GameManager.manager.skiingLevel)
-            updateLevel((int)sessionScore);
+        float finalScore = (float)Math.Floor(((6 / ((gameTime/distanceBetweenFlags)-(playerLevel/10))) * sessionScore));    // playerLevel/10 = number of flags that can let pass and still score S
+        if (finalScore > 5) finalScore = 5;
+        float sessionSpeed = playerDistance / gameTime;
+        if (finalScore >= GameManager.manager.skiingLevel)
+            updateLevel((int)finalScore, sessionSpeed);
         //Debug.Log("Obtuviste una: " + ratings[(int)sessionScore]);
         pauseBtn.transform.GetChild(0).gameObject.SetActive(true);
         pauseBtn.GetComponentInChildren<Text>().text = "Obtuviste una: " + ratings[(int)sessionScore];
     }
 
-    private void updateLevel(int ss)
+    private void updateLevel(int ss, float speed)
     {
         int modifyLevel = 0;
         switch (ss)
@@ -106,7 +107,7 @@ public class SkiingController : MonoBehaviour {
                 modifyLevel = 3;
                 break;
         }
-        GameManager.manager.SetSkiingLvl(GameManager.manager.skiingLevel += modifyLevel);
+        GameManager.manager.SetSkiingLvl(GameManager.manager.skiingLevel += modifyLevel, speed);
     }
 
     public void PlayerScore(int point)
