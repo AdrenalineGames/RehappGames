@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour {
 
     public string dbLink = "http://localhost/MahavirKmina/";
 
-    public string playerId;
-    public string playerPw;
+    public string playerId = "";
+    public string playerPw = "";
     public int marathonLevel = 0;
     public float marathonSpeed = 0;
     public int marathonSteps = 0;
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour {
     public int dodgeballLevel = 0;
     public bool save = false;
 
-    ulong saveDate = 0;
+    public ulong saveDate = 0;
 
     string unlockPw = "r3A6";
     string inputPw = "";
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Awake ()
     {
-        //Debug.Log(Application.persistentDataPath);
+        Debug.Log(Application.persistentDataPath);
         if (manager == null)
             manager = this;
         else if (manager != this)
@@ -110,8 +110,8 @@ public class GameManager : MonoBehaviour {
 
         PlayerData data = new PlayerData();
         data.saveDate = saveDate;
-        data.playerId = "";
-        data.playerPw = "";
+        data.playerId = playerId;
+        data.playerPw = playerPw;
         data.marathonLevel = marathonLevel;
         data.marathonSpeed = marathonSpeed;
         data.marathonSteps = marathonSteps;
@@ -121,6 +121,9 @@ public class GameManager : MonoBehaviour {
 
         bf.Serialize(file, data);
         file.Close();
+
+        if (playerId != "")
+            this.GetComponentInChildren<DataSaver>().SetData();
     }
 
     public void Load()
