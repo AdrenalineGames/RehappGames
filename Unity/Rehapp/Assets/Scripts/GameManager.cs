@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
     public float skiingSpeed = 0;
     public int dodgeballLevel = 0;
     public bool save = false;
+    public bool dbLoading = false;
+    
 
     public ulong saveDate = 0;
 
@@ -122,8 +124,10 @@ public class GameManager : MonoBehaviour {
         bf.Serialize(file, data);
         file.Close();
 
-        if (playerId != "")
+        if (playerId != "" && !dbLoading)
             this.GetComponentInChildren<DataSaver>().SetData();
+
+        dbLoading = false;
     }
 
     public void Load()
