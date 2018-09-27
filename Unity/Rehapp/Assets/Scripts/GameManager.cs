@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager manager;
 
-    public string dbLink = "http://localhost/MahavirKmina/";
+    public string dbLink = "http://localhost/InteractiveSportsPlayers/";
 
     public string playerId = "";
     public string playerPw = "";
@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
     public int skiingLevel = 0;
     public float skiingSpeed = 0;
     public int dodgeballLevel = 0;
+    public bool mahavirPatient = false;
     public bool save = false;
     public bool dbLoading = false;
     
@@ -90,10 +91,21 @@ public class GameManager : MonoBehaviour {
         Save();
     }
 
-    // Use this for initialization
+    //IEnumerator DbConnection()
+    //{
+    //    string url = dbLink + "connectionPDO.php";
+    //    Debug.Log(dbLink);
+    //    WWW www = new WWW(url);
+
+    //    yield return www;
+
+    //    Debug.Log(www.text);
+    //}
+    
     void Awake ()
     {
-        Debug.Log(Application.persistentDataPath);
+        //StartCoroutine(DbConnection());
+        //Debug.Log(Application.persistentDataPath);
         if (manager == null)
             manager = this;
         else if (manager != this)
@@ -111,6 +123,7 @@ public class GameManager : MonoBehaviour {
         FileStream file = File.Create(Application.persistentDataPath + "/saves.dat");
 
         PlayerData data = new PlayerData();
+        data.mahavirPatient = mahavirPatient;
         data.saveDate = saveDate;
         data.playerId = playerId;
         data.playerPw = playerPw;
@@ -140,6 +153,7 @@ public class GameManager : MonoBehaviour {
             PlayerData data = (PlayerData)bf.Deserialize(file);
             file.Close();
 
+            mahavirPatient = data.mahavirPatient;
             saveDate = data.saveDate;
             playerId = data.playerId;
             playerPw = data.playerPw;
@@ -174,6 +188,7 @@ public class GameManager : MonoBehaviour {
 [Serializable]
 class PlayerData
 {
+    public bool mahavirPatient;
     public ulong saveDate;
     public string playerId;
     public string playerPw;
