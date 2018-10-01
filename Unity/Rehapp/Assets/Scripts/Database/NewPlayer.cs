@@ -29,9 +29,15 @@ public class NewPlayer : MonoBehaviour {
 
     IEnumerator Register()
     {
-        yield return StartCoroutine(CheckRepeat());
-        if (!existing)
-            StartCoroutine(AddNewPatient());
+        yield return StartCoroutine(this.GetComponent<CheckInternet>().CheckDbConnection());
+        if (GameManager.manager.dbConnection)
+        {
+            yield return StartCoroutine(CheckRepeat());
+            if (!existing)
+                StartCoroutine(AddNewPatient());
+        }
+        else
+            MsgSystem("No es posible conectar a la base de datos, por favor intente más tarde");
     }
 
     IEnumerator CheckRepeat()

@@ -1,5 +1,7 @@
 <?php
-	include_once 'connectionPDO.php';
+	ob_start();
+	include_once 'connectionPDO.php';	
+	ob_end_clean();	
 		
 	$username = $_POST["usernamePost"];
 	$pass = $_POST["passPost"];

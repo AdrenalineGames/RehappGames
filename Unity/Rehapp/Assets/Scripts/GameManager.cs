@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour {
     public bool mahavirPatient = false;
     public bool save = false;
     public bool dbLoading = false;
-    
+    public bool dbConnection = false;
+
 
     public ulong saveDate = 0;
 
@@ -94,14 +95,15 @@ public class GameManager : MonoBehaviour {
     //IEnumerator DbConnection()
     //{
     //    string url = dbLink + "connectionPDO.php";
-    //    Debug.Log(dbLink);
     //    WWW www = new WWW(url);
 
     //    yield return www;
+    //    if (www.error != null)
+    //        Debug.Log("Error. Check internet connection!");
 
     //    Debug.Log(www.text);
     //}
-    
+
     void Awake ()
     {
         //StartCoroutine(DbConnection());
@@ -113,6 +115,8 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
         Load();
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        //this.GetComponent<CheckInternet>().CheckInternetConnection();
+        StartCoroutine(this.GetComponent<CheckInternet>().CheckDbConnection());
     }
 
     public void Save()

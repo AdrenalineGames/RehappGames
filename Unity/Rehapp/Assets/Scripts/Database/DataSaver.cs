@@ -30,20 +30,25 @@ public class DataSaver : MonoBehaviour {
 
     IEnumerator SaveDataDb()
     {
-        WWWForm form = new WWWForm();
-        form.AddField("usernamePost", username);
-        form.AddField("marathonLevelPost", marathonLevel);
-        form.AddField("marathonSpeedPost", marathonSpeed.ToString());
-        form.AddField("marathonStepsPost", marathonSteps);
-        form.AddField("skiingLevelPost", skiingLevel);
-        form.AddField("skiingSpeedPost", skiingSpeed.ToString());
-        form.AddField("dodgeballLevelPost", dodgeballLevel);
-        form.AddField("saveDatePost", saveDate.ToString());
+        yield return StartCoroutine(this.GetComponent<CheckInternet>().CheckDbConnection());
 
-        WWW www = new WWW(url, form);
+        if (GameManager.manager.dbConnection)
+        { 
+            WWWForm form = new WWWForm();
+            form.AddField("usernamePost", username);
+            form.AddField("marathonLevelPost", marathonLevel);
+            form.AddField("marathonSpeedPost", marathonSpeed.ToString());
+            form.AddField("marathonStepsPost", marathonSteps);
+            form.AddField("skiingLevelPost", skiingLevel);
+            form.AddField("skiingSpeedPost", skiingSpeed.ToString());
+            form.AddField("dodgeballLevelPost", dodgeballLevel);
+            form.AddField("saveDatePost", saveDate.ToString());
 
-        yield return www;
+            WWW www = new WWW(url, form);
 
-        Debug.Log(www.text);
+            yield return www;
+
+            Debug.Log(www.text);
+        }
     }
 }
