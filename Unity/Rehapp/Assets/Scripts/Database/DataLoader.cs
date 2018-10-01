@@ -22,7 +22,7 @@ public class DataLoader : MonoBehaviour
     }
 
     IEnumerator Connect () {
-        dbLink = GameManager.manager.dbLink + "PatientsData.php";
+        dbLink = GameManager.manager.dbLink + "LoadData.php";
         username = GameManager.manager.playerId;
         pass = GameManager.manager.playerPw;
 

@@ -15,20 +15,48 @@ public class NewPlayer : MonoBehaviour {
     public string password;
     public bool mahavir = false;
 
+    bool existing = false;
+
     public bool add = false;
 
 
     public void SetData()
     {
-        url = GameManager.manager.dbLink + "InsertPlayer.php";
-        Debug.Log(url);
         username = GameManager.manager.playerId;
         password = GameManager.manager.playerPw;
-        StartCoroutine(AddNewPatient());
+        StartCoroutine(Register());
+    }
+
+    IEnumerator Register()
+    {
+        yield return StartCoroutine(CheckRepeat());
+        if (!existing)
+            StartCoroutine(AddNewPatient());
+    }
+
+    IEnumerator CheckRepeat()
+    {
+        url = GameManager.manager.dbLink + "LoadData.php";
+        WWWForm form = new WWWForm();
+        form.AddField("usernamePost", username);
+        form.AddField("passPost", password);
+
+        WWW pacientData = new WWW(url, form);
+        yield return pacientData;
+        Debug.Log(pacientData.text);
+
+        if (pacientData.text == "Player not found")
+            existing = false;
+        else
+        {
+            existing = true;
+            MsgSystem("El usuario ya existe en la base de datos");
+        }
     }
 
     IEnumerator AddNewPatient()
     {
+        url = GameManager.manager.dbLink + "InsertPlayer.php";
         WWWForm form = new WWWForm();
         form.AddField("usernamePost", username);
         form.AddField("passPost", password);
@@ -37,25 +65,25 @@ public class NewPlayer : MonoBehaviour {
         WWW www = new WWW(url, form);
 
         yield return www;
-        Debug.Log(www.text);
+        //Debug.Log(www.text);
 
-        MsgSystem(www.text);
+        if (www.text == "Added")
+        {
+            MsgSystem("Jugador creado con éxito en la base de datos");
+            //tx.text = msg;
+        }
+        else
+        {
+            MsgSystem("El jugador no pudo ser agregado a la base de datos");
+            //tx.text = msg;
+        }
     }
 
     private void MsgSystem(string msg)
     {
         msgSystem.gameObject.SetActive(true);
         Text tx = msgSystem.transform.Find("MsgText").gameObject.GetComponent<Text>();
-        if (msg == "Added")
-        {
-            tx.text = "Jugador creado con éxito en la base de datos";
-            //tx.text = msg;
-        }
-        else
-        {
-            tx.text = "El jugador no pudo ser agregado a la base de datos";
-            //tx.text = msg;
-        }
+        tx.text = msg;
     }
 
     private void Update()
