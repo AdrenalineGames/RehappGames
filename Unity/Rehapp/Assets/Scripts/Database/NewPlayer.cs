@@ -17,8 +17,6 @@ public class NewPlayer : MonoBehaviour {
 
     bool existing = false;
 
-    public bool add = false;
-
 
     public void SetData()
     {
@@ -92,14 +90,8 @@ public class NewPlayer : MonoBehaviour {
         tx.text = msg;
     }
 
-    private void Update()
+    public void SetMahavirPatient(bool patient)
     {
-        mahavirToggle.isOn = pwListener.result;
-        mahavir = pwListener.result;
-        if (add)
-        {
-            StartCoroutine(AddNewPatient());
-            add = false;
-        }
+        mahavirToggle.isOn = mahavir = patient;
     }
 }

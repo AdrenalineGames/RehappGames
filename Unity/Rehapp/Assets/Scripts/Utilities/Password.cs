@@ -6,6 +6,7 @@ public class Password : MonoBehaviour {
 
     string correctPw;
     string inputPw;
+    string option = "";
     PwListener caller;
     public GameObject wrongPwPop;
     public GameObject correctPwPop;
@@ -25,6 +26,11 @@ public class Password : MonoBehaviour {
         inputPw = pw;
     }
 
+    public void SetOption(string opt)
+    {
+        option = opt;
+    }
+
     public void CheckPw()
     {
         bool match = false;
@@ -32,6 +38,8 @@ public class Password : MonoBehaviour {
             match = true;
         correctPwPop.SetActive(match);
         wrongPwPop.SetActive(!match);
-        caller.SetResult(match);
+        if (option != "")
+            caller.SetOption(option);
+        caller.SetPwResult(match);
     }
 }

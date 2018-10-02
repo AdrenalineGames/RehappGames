@@ -28,8 +28,6 @@ public class GameManager : MonoBehaviour {
 
     public ulong saveDate = 0;
 
-    string unlockPw = "r3A6";
-    string inputPw = "";
 
     //private void Start()
     //{
@@ -46,15 +44,11 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void SetInputPw(string ipw)
+    public void UnlockGames(bool result)
     {
-        inputPw = ipw;
-    }
-
-    public void UnlockGames()
-    {
-        if (unlockPw == inputPw)
+        if (result)
         {
+            GameObject.Find("DesbloquearLvls").GetComponent<Button>().interactable = false;
             marathonLevel = 6;
             skiingLevel = 6;
             Save();
@@ -92,22 +86,9 @@ public class GameManager : MonoBehaviour {
         Save();
     }
 
-    //IEnumerator DbConnection()
-    //{
-    //    string url = dbLink + "connectionPDO.php";
-    //    WWW www = new WWW(url);
-
-    //    yield return www;
-    //    if (www.error != null)
-    //        Debug.Log("Error. Check internet connection!");
-
-    //    Debug.Log(www.text);
-    //}
-
     void Awake ()
     {
-        //StartCoroutine(DbConnection());
-        //Debug.Log(Application.persistentDataPath);
+        Debug.Log(Application.persistentDataPath);
         if (manager == null)
             manager = this;
         else if (manager != this)
@@ -115,7 +96,6 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
         Load();
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        //this.GetComponent<CheckInternet>().CheckInternetConnection();
         StartCoroutine(this.GetComponent<CheckInternet>().CheckDbConnection());
     }
 

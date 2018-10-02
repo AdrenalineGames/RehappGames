@@ -4,10 +4,25 @@ using UnityEngine;
 
 public class PwListener : MonoBehaviour
 {
-    public bool result = false;
+    string option;
 
-    public void SetResult(bool match)
+    public void SetOption(string opt)
     {
-        result = match;
+        option = opt;
+    }
+
+    public void SetPwResult(bool match)
+    {
+        switch (option)
+        {
+            case "paciente":
+                GameManager.manager.GetComponent<NewPlayer>().SetMahavirPatient(match);
+                break;
+            case "unlock":
+                GameManager.manager.UnlockGames(match);
+                break;
+            default:
+                break;
+        }
     }
 }
