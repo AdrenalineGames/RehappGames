@@ -11,7 +11,7 @@ public class FlagPosition : MonoBehaviour {
 
     private void Position()
     {
-        transform.position -= new Vector3(0, 0, PlayerPosition.PlayerFrontalSpeed * Time.deltaTime);
+        transform.position -= new Vector3(0, -(PlayerPosition.PlayerFrontalSpeed * Time.deltaTime)/2, PlayerPosition.PlayerFrontalSpeed * Time.deltaTime);
         if (transform.position.z < -2)
             Destroy(gameObject);
     }

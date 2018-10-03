@@ -80,9 +80,9 @@ public class SkiingController : MonoBehaviour {
         float sessionSpeed = playerDistance / gameTime;
         if (finalScore >= GameManager.manager.skiingLevel)
             updateLevel((int)finalScore, sessionSpeed);
-        //Debug.Log("Obtuviste una: " + ratings[(int)sessionScore]);
+        //Debug.Log("Obtuviste una: " + ratings[(int)finalScore]);
         pauseBtn.transform.GetChild(0).gameObject.SetActive(true);
-        pauseBtn.GetComponentInChildren<Text>().text = "Obtuviste una: " + ratings[(int)sessionScore];
+        pauseBtn.GetComponentInChildren<Text>().text = "Obtuviste una: " + ratings[(int)finalScore];
     }
 
     private void updateLevel(int ss, float speed)

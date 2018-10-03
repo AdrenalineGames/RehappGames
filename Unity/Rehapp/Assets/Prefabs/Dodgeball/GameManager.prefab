@@ -8,18 +8,23 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1221432522017546}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1221432522017546
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4710709869368582}
   - component: {fileID: 114723974836780296}
+  - component: {fileID: 114764699431183582}
+  - component: {fileID: 114321988033752820}
+  - component: {fileID: 114083041018800222}
+  - component: {fileID: 114614285402861870}
+  - component: {fileID: 114726352989964826}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -30,7 +35,7 @@ GameObject:
 --- !u!4 &4710709869368582
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1221432522017546}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -40,10 +45,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114083041018800222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1221432522017546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f055717c421b96142a26c84e3cca7c9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114321988033752820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1221432522017546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adfa55acb1200e9429c09161594275f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  msgSystem: {fileID: 0}
+  mahavirToggle: {fileID: 0}
+  pwListener: {fileID: 114083041018800222}
+  url: 
+  username: 
+  password: 
+  mahavir: 0
+--- !u!114 &114614285402861870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1221432522017546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62716ad161815e047865001f41172017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  url: 
+  username: 
+  marathonLevel: 0
+  marathonSpeed: 0
+  marathonSteps: 0
+  skiingLevel: 0
+  skiingSpeed: 0
+  dodgeballLevel: 0
 --- !u!114 &114723974836780296
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1221432522017546}
   m_Enabled: 1
@@ -51,8 +104,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8decedbea5d4f07499669a93f4e7a64c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: Nah
+  dbLink: http://localhost/InteractiveSportsPlayers/
+  playerId: 
   playerPw: Nah
-  dodgeballLevel: 0
   marathonLevel: 0
+  marathonSpeed: 0
+  marathonSteps: 0
   skiingLevel: 0
+  skiingSpeed: 0
+  dodgeballLevel: 0
+  mahavirPatient: 0
+  save: 0
+  dbLoading: 0
+  dbConnection: 0
+  saveDate: 0
+--- !u!114 &114726352989964826
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1221432522017546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57b9ea15a16cb654c9cfe2cab7358f6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114764699431183582
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1221432522017546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1db5b673effbdf41b5d532bc16a4498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  msgSystem: {fileID: 0}
+  dbLink: 
+  username: 
+  pass: 
+  connect: 0
+  data: []

@@ -1126,7 +1126,7 @@ RectTransform:
   - {fileID: 618849035}
   - {fileID: 1002140444}
   m_Father: {fileID: 470812452}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.6452257}
@@ -2411,10 +2411,10 @@ RectTransform:
   m_Children:
   - {fileID: 1262827021}
   - {fileID: 789781606}
+  - {fileID: 165869656}
   - {fileID: 1906207546}
   - {fileID: 1762295418}
   - {fileID: 952543063}
-  - {fileID: 165869656}
   - {fileID: 793401845}
   - {fileID: 665867936}
   - {fileID: 1789575495}
@@ -4401,7 +4401,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -0.000019372932, y: 0}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0}
   m_SizeDelta: {x: 0, y: 165.4}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &745247167
@@ -4773,7 +4773,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000055202, y: -20}
+  m_AnchoredPosition: {x: 0.000061035156, y: -20}
   m_SizeDelta: {x: -160, y: 270}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &789781607
@@ -6035,7 +6035,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000019372932, y: 0}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0}
   m_SizeDelta: {x: 0, y: 133.4}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1026228123
@@ -8167,95 +8167,42 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114723974836780296, guid: 2366a4ae0333a4444a2fb474583de7a3,
+    - target: {fileID: 114764699431183582, guid: 2366a4ae0333a4444a2fb474583de7a3,
         type: 2}
-      propertyPath: dbLink
-      value: http://localhost/InteractiveSportsPlayers/
-      objectReference: {fileID: 0}
+      propertyPath: msgSystem
+      value: 
+      objectReference: {fileID: 2016166090}
+    - target: {fileID: 114321988033752820, guid: 2366a4ae0333a4444a2fb474583de7a3,
+        type: 2}
+      propertyPath: msgSystem
+      value: 
+      objectReference: {fileID: 2016166090}
+    - target: {fileID: 114321988033752820, guid: 2366a4ae0333a4444a2fb474583de7a3,
+        type: 2}
+      propertyPath: mahavirToggle
+      value: 
+      objectReference: {fileID: 444167749}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2366a4ae0333a4444a2fb474583de7a3, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1417484312 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1221432522017546, guid: 2366a4ae0333a4444a2fb474583de7a3,
+--- !u!114 &1417484313 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114764699431183582, guid: 2366a4ae0333a4444a2fb474583de7a3,
     type: 2}
   m_PrefabInternal: {fileID: 1417484311}
---- !u!114 &1417484313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1417484312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1db5b673effbdf41b5d532bc16a4498, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  msgSystem: {fileID: 2016166090}
-  dbLink: 
-  username: 
-  pass: 
-  connect: 0
-  data: []
---- !u!114 &1417484314
+--- !u!114 &1417484314 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1417484312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114321988033752820, guid: 2366a4ae0333a4444a2fb474583de7a3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1417484311}
   m_Script: {fileID: 11500000, guid: adfa55acb1200e9429c09161594275f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  msgSystem: {fileID: 2016166090}
-  mahavirToggle: {fileID: 444167749}
-  pwListener: {fileID: 1417484315}
-  url: 
-  username: 
-  password: 
-  mahavir: 0
---- !u!114 &1417484315
+--- !u!114 &1417484315 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1417484312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114083041018800222, guid: 2366a4ae0333a4444a2fb474583de7a3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1417484311}
   m_Script: {fileID: 11500000, guid: f055717c421b96142a26c84e3cca7c9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1417484316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1417484312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62716ad161815e047865001f41172017, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  url: 
-  username: 
-  marathonLevel: 0
-  marathonSpeed: 0
-  marathonSteps: 0
-  skiingLevel: 0
-  skiingSpeed: 0
-  dodgeballLevel: 0
---- !u!114 &1417484318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1417484312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57b9ea15a16cb654c9cfe2cab7358f6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1418024555
 GameObject:
   m_ObjectHideFlags: 0
