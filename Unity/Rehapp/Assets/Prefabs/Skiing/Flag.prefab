@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 33120279321376692}
   - component: {fileID: 65826476305108660}
   - component: {fileID: 114391794749119088}
+  - component: {fileID: 114983824044244790}
   - component: {fileID: 54998176167887614}
   m_Layer: 0
   m_Name: Flag
@@ -130,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1650883923239828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.56253624, y: -0.47687912, z: 2.0901814}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4467863967749600}
@@ -337,6 +338,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29bb83abfa83bd343b41c7e8abfed4ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114983824044244790
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1650883923239828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ae0650b658ee324fb27346fb1ba2327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  posRestriction: -2
 --- !u!212 &212366671193551214
 SpriteRenderer:
   m_ObjectHideFlags: 1
