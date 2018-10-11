@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 54641492046111184}
   - component: {fileID: 114135648948222328}
   - component: {fileID: 136601051142609316}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ball
   m_TagString: Ball
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 33787390421993350}
   - component: {fileID: 23509543012139066}
   - component: {fileID: 114404983511427910}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Shadow
   m_TagString: Ball
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 1162724689708350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.43862152, y: 0.53606606, z: 6.18}
-  m_LocalScale: {x: 120, y: 120, z: 120}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4120296991741578}
   m_Father: {fileID: 0}

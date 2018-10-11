@@ -12,12 +12,9 @@ public class DestroyOnContact : MonoBehaviour {
         gameController = GameObject.FindWithTag("GameController").GetComponent<DodgeballController>();
     }
 
+
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Ball")
-            Physics.IgnoreCollision(other.collider, GetComponent<Collider>());
-        if (other.gameObject.tag == "BallBomb")
-            Physics.IgnoreCollision(other.collider, GetComponent<Collider>());
         if (other.gameObject.tag == "Player")
         {
             if (this.tag == "BallBomb")

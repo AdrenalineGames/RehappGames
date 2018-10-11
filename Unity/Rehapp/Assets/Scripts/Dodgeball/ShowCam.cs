@@ -10,7 +10,7 @@ public class ShowCam : MonoBehaviour {
     {
         var renderer = GetComponent<Renderer>();
         renderer.material.SetFloat("_Mode", 3);
-        renderer.material.color = new Color(1.0f, 1.0f, 1.0f, 0.6f);
+        renderer.material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
         renderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
         renderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
         renderer.material.SetInt("_ZWrite", 0);
@@ -21,7 +21,7 @@ public class ShowCam : MonoBehaviour {
         cam = GlobalCam.gameCam;
         renderer.material.mainTexture = cam;
         gameObject.transform.localScale = new Vector3(-(float)GlobalCam.gameCam.width, (float)GlobalCam.gameCam.height, 1);
-        gameObject.transform.position = new Vector3(GlobalCam.gameCam.width / 2, GlobalCam.gameCam.height / 2, 430);
+        gameObject.transform.position = new Vector3(GlobalCam.gameCam.width / 2, GlobalCam.gameCam.height / 2, transform.position.z);
     }
 
     //private void Update()

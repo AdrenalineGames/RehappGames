@@ -15,6 +15,7 @@ public class PlayerPosition : MonoBehaviour
     public float targetLimit = 0.6f;    //640x480 = 4, 160x120 = 0.6
     public Text debugTx;
     public SkiingController SK;
+    public Animator anim;
     public bool testing;
     public float testingSpeed;
 
@@ -64,6 +65,7 @@ public class PlayerPosition : MonoBehaviour
     private void LateUpdate()   // Late update to let the cam update
     {
         //timer += Time.deltaTime;
+        SetPlayerPose();
 
         if (SkiingController.onGame)
         {
@@ -109,6 +111,13 @@ public class PlayerPosition : MonoBehaviour
             if (testing)
                 PlayerFrontalSpeed = testingSpeed;
         }
+    }
+
+    private void SetPlayerPose()
+    {
+        anim.SetFloat("position", Math.Abs(transform.position.x / 5.1f));
+        transform.localScale = new Vector3((transform.position.x >= 0 ? 1 : -1) * Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        anim.SetFloat("speed", PlayerFrontalSpeed);
     }
 
     public void PlayerSpeedMultiplier(float mD)
@@ -213,8 +222,9 @@ public class PlayerPosition : MonoBehaviour
     private void PlayerHorizontalPos()
     {
         float horizontalPos = mean.x * posAmplifier;
-        if (testing)
-            horizontalPos = transform.position.x + Input.GetAxis("Horizontal")*0.1f;
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
+        horizontalPos = transform.position.x + Input.GetAxis("Horizontal") * 0.1f;
+#endif
         if (horizontalPos > 5) horizontalPos = 5;
         if (horizontalPos < -5) horizontalPos = -5;
         transform.position = new Vector3(horizontalPos, transform.position.y, transform.position.z);
