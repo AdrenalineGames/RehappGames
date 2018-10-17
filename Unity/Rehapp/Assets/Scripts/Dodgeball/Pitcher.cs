@@ -6,6 +6,7 @@ public class Pitcher : MonoBehaviour {
 
     public Rigidbody[] Ball;
     public DodgeballMechanics dM;
+    public Animator anim;
 
     [HideInInspector]
     public int maxPoints;
@@ -87,8 +88,14 @@ public class Pitcher : MonoBehaviour {
                 ballRigid = Instantiate(Ball[0], transform.position, transform.rotation, transform) as Rigidbody;
                 maxPoints++;
             }
+            anim.SetFloat("firerate", 7-fireRateR);
             yield return new WaitForSeconds(fireRateR);
+            anim.SetTrigger("shoot");
+            yield return new WaitForSeconds(0.35f);
             ballRigid.transform.parent = null;
+            ballRigid.transform.Find("Render").GetComponent<Rigidbody>().AddTorque(new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f)) * forceAmountR);
+            ballRigid.transform.Find("Render").GetComponent<Rigidbody>().AddForce(transform.forward * forceAmountR);
+            //ballRigid.AddTorque(new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f)) * forceAmountR);
             ballRigid.AddForce(transform.forward * forceAmountR);
             if (!DodgeballController.onGame)    
             {

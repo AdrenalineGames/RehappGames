@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager manager;
 
+    public bool advertising = false;
+    public bool tests = false;
+
     public string dbLink = "http://localhost/InteractiveSportsPlayers/";
 
     public string playerId = "";

@@ -65,6 +65,7 @@ public class DodgeballController : MonoBehaviour {
         if (pitchers.GetComponent<Pitcher>().shootOver)     // Waits until ther is no balls in game
         {
             pitchers.GetComponent<Pitcher>().shootOver = false;
+            GameManager.manager.advertising = true;
             Finish();
         }
     }
@@ -134,6 +135,8 @@ public class DodgeballController : MonoBehaviour {
 
     public void ResetLevel()
     {
+        if(GameManager.manager.tests)
+            sessionTime = 10;
         gameTime = sessionTime;
         onGame = false;
         startGame = false;

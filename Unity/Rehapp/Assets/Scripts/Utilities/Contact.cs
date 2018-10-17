@@ -8,7 +8,7 @@ public class Contact : MonoBehaviour {
 
     string techEmail = "sympatheticgames@gmail.com";
     string mahavirEmail = "Jesusplata@mahavir-kmina.org";
-    string subject = "Rehapp contact";
+    string subject = "Contacto App Juegos Interactivos";
     string msgTxt;
     int contactOption;
 

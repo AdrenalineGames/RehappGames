@@ -129,6 +129,8 @@ public class DodgeballMechanics : MonoBehaviour {
 
     IEnumerator SetBg()
     {
+        if (GameManager.manager.tests)
+            backgroundTemporizer = 1;
         instructionsPanel.gameObject.SetActive(true);
         SetPlayCam();   // Actives the game cam
         settingBackground = true;

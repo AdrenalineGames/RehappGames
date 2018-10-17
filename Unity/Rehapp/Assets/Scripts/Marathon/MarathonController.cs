@@ -71,6 +71,7 @@ public class MarathonController : MonoBehaviour {
     {
         onGame = false;
         pedometer.StartCapturing();
+        GameManager.manager.advertising = true;
 
         if (steps > goal * 0.7)
         {
@@ -87,7 +88,10 @@ public class MarathonController : MonoBehaviour {
     {
         playerLvl = GameManager.manager.marathonLevel;
         goal = ((playerLvl-minLevel)*((maxGoal-minGoal)/(maxLevel-minLevel))+minGoal);
-        //goal = 5 + playerLvl;      //Tests
+        if (GameManager.manager.tests)
+        {
+            goal = 5 + playerLvl;      //Tests
+        }
         Debug.Log(goal);
         stepsTx.text = "Tu nuevo objetivo son " + goal + " pasos!";
     }

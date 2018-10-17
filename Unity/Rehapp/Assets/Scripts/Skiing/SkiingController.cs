@@ -45,7 +45,8 @@ public class SkiingController : MonoBehaviour {
 
     private void SetDifficult()
     {
-        gameTime = 10+playerLevel;
+        if (!GameManager.manager.tests)
+            gameTime = 10 + playerLevel;
         //Debug.Log(playerLevel + " " + gameTime);
     }
 
@@ -67,6 +68,7 @@ public class SkiingController : MonoBehaviour {
                 if (GameObject.FindGameObjectWithTag("Ball") == null)   // Waits until there is no more flags
                 {
                     onGame = false;
+                    GameManager.manager.advertising = true;
                     RateSession();
                 }
             }
