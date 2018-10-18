@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour {
     public bool advertising = false;
     public bool tests = false;
 
-    public string dbLink = "http://localhost/InteractiveSportsPlayers/";
+    public string dbLocal = "http://localhost/InteractiveSportsPlayers/";
+    public string dbLink = "https://dizquestudios.000webhostapp.com/";
 
     public string playerId = "";
     public string playerPw = "";

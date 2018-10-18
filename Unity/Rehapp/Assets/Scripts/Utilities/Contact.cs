@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Contact : MonoBehaviour {
 
 
-    string techEmail = "sympatheticgames@gmail.com";
+    string techEmail = "develop.info.de@gmail.com";
     string mahavirEmail = "Jesusplata@mahavir-kmina.org";
     string subject = "Contacto App Juegos Interactivos";
     string msgTxt;

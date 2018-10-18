@@ -69,7 +69,7 @@ public class NewPlayer : MonoBehaviour {
         WWW www = new WWW(url, form);
 
         yield return www;
-        //Debug.Log(www.text);
+        Debug.Log(www.text);
 
         if (www.text == "Added")
         {

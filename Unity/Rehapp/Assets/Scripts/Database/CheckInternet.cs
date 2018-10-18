@@ -14,14 +14,18 @@ public class CheckInternet : MonoBehaviour {
         if (connect.error != null)
         {
             Debug.Log("Error. Check internet connection!");
+            Debug.Log(connect.error);
             GameManager.manager.dbConnection = false;
         }
-        else if(connect.text == "Error")
+        else if (connect.text == "Error")
         {
             Debug.Log("Error. Database offline");
             GameManager.manager.dbConnection = false;
         }
         else
+        {
             GameManager.manager.dbConnection = true;
+            Debug.Log(connect.text);
+        }
     }
 }
