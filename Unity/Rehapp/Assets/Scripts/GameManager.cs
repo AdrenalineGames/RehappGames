@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager manager;
 
+    public Transform warningSystem;
+
     public bool advertising = false;
     public bool tests = false;
 
@@ -155,15 +157,27 @@ public class GameManager : MonoBehaviour {
         else Debug.Log("No saved data");
     }
 
-    public void ReiniciarNiveles()
+    public void CallResetLevels()
     {
-        marathonLevel = 0;
-        marathonSpeed = 0;
-        marathonSteps = 0;
-        skiingLevel = 0;
-        skiingSpeed = 0;
-        dodgeballLevel = 0;
-        Save();
+        StartCoroutine(ReiniciarNiveles());
+    }
+
+    IEnumerator ReiniciarNiveles()
+    {
+        Transform warningS = Instantiate(warningSystem, GameObject.Find("Canvas").transform);
+        warningS.GetComponent<WarningSystem>().SetMsg("Advertencia:"+ Environment.NewLine + "Si reinicia los niveles todo su progreso se perderá y los juegos Ski y Ponchado se bloquearan hasta que suba a nivel 5 en Maratón.");
+        yield return new WaitUntil(() => warningS.GetComponent<WarningSystem>().Decision);
+        if (warningS.GetComponent<WarningSystem>().Accept)
+        {
+            marathonLevel = 0;
+            marathonSpeed = 0;
+            marathonSteps = 0;
+            skiingLevel = 0;
+            skiingSpeed = 0;
+            dodgeballLevel = 0;
+            Save();
+        }
+        warningS.GetComponent<WarningSystem>().DestroyMsg();
     }
 
     ulong DateAsLong()

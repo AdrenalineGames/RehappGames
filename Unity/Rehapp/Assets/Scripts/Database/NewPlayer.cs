@@ -10,6 +10,9 @@ public class NewPlayer : MonoBehaviour {
     public Toggle mahavirToggle;
     public PwListener pwListener;
 
+    public Transform warningSystem;
+    public Transform hyperLink;
+
     public string url;
     public string username;
     public string password;
@@ -22,7 +25,24 @@ public class NewPlayer : MonoBehaviour {
     {
         username = GameManager.manager.playerId;
         password = GameManager.manager.playerPw;
-        StartCoroutine(Register());
+        StartCoroutine(AcceptPolitics());
+    }
+
+    IEnumerator AcceptPolitics()
+    {
+        Transform warningS = Instantiate(warningSystem, GameObject.Find("Canvas").transform);
+        warningS.GetComponent<WarningSystem>().SetMsg("Advertencia:" + Environment.NewLine + "Al presionar Aceptar, usted acepta nuestra políta de manejo de datos");
+        Transform hLink = Instantiate(hyperLink, warningS.Find("LinkPanel"));
+        hLink.GetComponent<HyperLink>().SetText("Ver Política de manejo de datos");
+        hLink.GetComponent<HyperLink>().url = ("https://dizquestudios.000webhostapp.com/Manejo%20de%20datos.pdf");
+
+        yield return new WaitUntil(() => warningS.GetComponent<WarningSystem>().Decision);
+        if (warningS.GetComponent<WarningSystem>().Accept)
+        {
+            GameManager.manager.Save();
+            StartCoroutine(Register());
+        }
+        warningS.GetComponent<WarningSystem>().DestroyMsg();
     }
 
     IEnumerator Register()
@@ -47,7 +67,7 @@ public class NewPlayer : MonoBehaviour {
 
         WWW pacientData = new WWW(url, form);
         yield return pacientData;
-        Debug.Log(pacientData.text);
+        //Debug.Log(pacientData.text);
 
         if (pacientData.text == "Player not found")
             existing = false;
