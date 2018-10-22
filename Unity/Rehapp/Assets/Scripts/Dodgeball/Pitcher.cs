@@ -51,7 +51,7 @@ public class Pitcher : MonoBehaviour {
         while (true)
         {
             //transform.position = new Vector3(Random.Range(5, 635), Random.Range(5, 475), transform.position.z);
-            fireRateR = Random.Range(fireRate - 0.5f, fireRate + 0.5f);
+            fireRateR = Random.Range(fireRate - 0.2f, fireRate + 0.3f);
             float forceAmountR = Random.Range(forceAmount - 20, forceAmount + 20);
             int randomBall = Random.Range(0, Ball.Length);
             Rigidbody ballRigid;
@@ -91,7 +91,7 @@ public class Pitcher : MonoBehaviour {
             anim.SetFloat("firerate", 7-fireRateR);
             yield return new WaitForSeconds(fireRateR);
             anim.SetTrigger("shoot");
-            yield return new WaitForSeconds(0.35f);
+            yield return new WaitForSeconds(0.25f);
             ballRigid.transform.parent = null;
             ballRigid.transform.Find("Render").GetComponent<Rigidbody>().AddTorque(new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f)) * forceAmountR);
             ballRigid.transform.Find("Render").GetComponent<Rigidbody>().AddForce(transform.forward * forceAmountR);
@@ -109,7 +109,7 @@ public class Pitcher : MonoBehaviour {
 
     public void SetDifficult(int lvl)   // This function is called from the DodgeballController
     {
-        fireRate = -0.09f * lvl + 5;
+        fireRate = -0.095f * lvl + 5;
         forceAmount = 1700 * lvl + 15000;
     }
 }

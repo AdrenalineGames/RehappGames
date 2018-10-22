@@ -1497,6 +1497,10 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 449214859}
+    - target: {fileID: 1195634172576418, guid: 40fb2ad9424d3a64aaf0d167585d5d51, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40fb2ad9424d3a64aaf0d167585d5d51, type: 2}
   m_IsPrefabAsset: 0
@@ -1572,10 +1576,11 @@ MonoBehaviour:
     Presiona Nuevo juego para comenzar una nueva partida. en pantalla te aparece el
     n\xFAmero de pasos y se te indicar\xE1 que guardes el tel\xE9fono en el bolsillo,
     sin bloquear el equipo.\r\n\r\n- Una vez alcanzada la meta, el tel\xE9fono vibrar\xE1
-    y mostrar\xE1 la puntuaci\xF3n alcanzada, basada en la velocidad de marcha.\r\n\r\n-
-    Puedes jugar cuantas veces quieras, pero solo subir\xE1s de nivel si tu puntuaci\xF3n
-    fue B o m\xE1s, en ese caso, en la siguiente partida aumentar\xE1 el n\xFAmero
-    de pasos necesario para el siguiente nivel.\r"
+    y mostrar\xE1 la puntuaci\xF3n alcanzada basada en la velocidad de marcha.\r Puedes
+    continuar camiando sin sacar el tel\xE9fono del bolsillo, la meta se actualizar\xE1
+    autm\xE1ticamente.\n\r\n- Puedes jugar cuantas veces quieras, pero solo subir\xE1s
+    de nivel si tu puntuaci\xF3n fue B o m\xE1s, en ese caso, en la siguiente partida
+    aumentar\xE1 el n\xFAmero de pasos necesario para el siguiente nivel.\r"
 --- !u!222 &1581934074
 CanvasRenderer:
   m_ObjectHideFlags: 0

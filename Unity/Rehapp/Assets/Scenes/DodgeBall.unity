@@ -371,7 +371,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 393.8}
+  m_SizeDelta: {x: 0, y: 365.26}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &84766254
 MonoBehaviour:
@@ -1055,8 +1055,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -5}
-  m_SizeDelta: {x: -30, y: -9.9999695}
+  m_AnchoredPosition: {x: 0, y: -5.025}
+  m_SizeDelta: {x: -30, y: -10.05}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &259775812
 MonoBehaviour:
@@ -4605,7 +4605,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: fd68f4d2368659b448969d3ac3c7991e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 522a3e0961bb48d42be7c39d19471013, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5138,7 +5138,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 80, y: -17.400024}
+  m_AnchoredPosition: {x: 161, y: -17.400024}
   m_SizeDelta: {x: 160, y: 34.800003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1720794141
@@ -5153,7 +5153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5319,7 +5319,9 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Instrucciones:\n- Terminado el proceso de reconocimiento, ver\xE1s una
     silueta sobre tu imagen en la pantalla, dicha silueta es tu forma de interactuar
-    con los objetos del juego."
+    con los objetos del juego. Si la silueta no rodea adecuadamente tu cuerpo, toca
+    la pantalla y selecciona juego nuevo para repetir el paso anterior, si el problema
+    continua por favor intenta jugar en otro lugar."
 --- !u!222 &1889997234
 CanvasRenderer:
   m_ObjectHideFlags: 0
