@@ -70,6 +70,8 @@ MonoBehaviour:
   msgSystem: {fileID: 0}
   mahavirToggle: {fileID: 0}
   pwListener: {fileID: 114083041018800222}
+  warningSystem: {fileID: 0}
+  hyperLink: {fileID: 0}
   url: 
   username: 
   password: 
@@ -104,7 +106,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8decedbea5d4f07499669a93f4e7a64c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dbLink: http://localhost/InteractiveSportsPlayers/
+  warningSystem: {fileID: 0}
+  advertising: 0
+  tests: 0
+  dbLocal: http://localhost/InteractiveSportsPlayers/
+  dbLink: https://dizquestudios.000webhostapp.com/
   playerId: 
   playerPw: Nah
   marathonLevel: 0
